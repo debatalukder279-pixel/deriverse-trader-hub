@@ -8,8 +8,7 @@ import {
   HelpCircle,
   LogOut,
   ChevronLeft,
-  Wallet,
-  Bell as BellIcon,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -22,7 +21,7 @@ const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/" },
   { icon: BookOpen, label: "Journal", path: "/journal" },
   { icon: TrendingUp, label: "Statistics", path: "/analytics" },
-  { icon: Wallet, label: "Finances", path: "/finances" },
+  { icon: FileText, label: "Finances", path: "/finances" },
 ];
 
 const supportItems = [
