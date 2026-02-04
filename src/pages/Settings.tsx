@@ -12,10 +12,15 @@ import {
   Palette, 
   Globe, 
   CreditCard,
-  Camera 
+  Camera,
+  Sun,
+  Moon,
+  Monitor,
+  Check
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 const settingsSections = [
   { id: 'profile', label: 'Profile', icon: User },
@@ -32,6 +37,13 @@ const Settings = () => {
   const [pushNotifications, setPushNotifications] = useState(true);
   const [marketAlerts, setMarketAlerts] = useState(false);
   const [twoFactor, setTwoFactor] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  const themeOptions = [
+    { id: 'light', label: 'Light', icon: Sun, description: 'Clean and bright' },
+    { id: 'dark', label: 'Dark', icon: Moon, description: 'Easy on the eyes' },
+    { id: 'system', label: 'System', icon: Monitor, description: 'Match device settings' },
+  ];
 
   return (
     <DashboardLayout title="Settings" subtitle="Manage your account preferences">
@@ -172,8 +184,62 @@ const Settings = () => {
 
           {activeSection === 'appearance' && (
             <div className="dashboard-card">
-              <h3 className="text-lg font-semibold text-foreground mb-6">Appearance</h3>
-              <p className="text-muted-foreground">Theme customization coming soon...</p>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Appearance</h3>
+              <p className="text-sm text-muted-foreground mb-6">Customize how Deriverse looks on your device</p>
+              
+              <div className="space-y-6">
+                {/* Theme Selection */}
+                <div>
+                  <Label className="text-sm font-medium mb-4 block">Theme</Label>
+                  <div className="grid grid-cols-3 gap-4">
+                    {themeOptions.map((option) => (
+                      <button
+                        key={option.id}
+                        onClick={() => setTheme(option.id)}
+                        className={cn(
+                          "relative flex flex-col items-center p-6 rounded-2xl border-2 transition-all",
+                          theme === option.id 
+                            ? "border-foreground bg-muted/50" 
+                            : "border-border hover:border-muted-foreground/50 hover:bg-muted/30"
+                        )}
+                      >
+                        {theme === option.id && (
+                          <div className="absolute top-3 right-3 w-5 h-5 rounded-full bg-foreground text-background flex items-center justify-center">
+                            <Check className="w-3 h-3" />
+                          </div>
+                        )}
+                        <div className={cn(
+                          "w-12 h-12 rounded-xl flex items-center justify-center mb-3",
+                          theme === option.id ? "bg-foreground text-background" : "bg-muted text-foreground"
+                        )}>
+                          <option.icon className="w-6 h-6" />
+                        </div>
+                        <span className="font-medium text-foreground">{option.label}</span>
+                        <span className="text-xs text-muted-foreground mt-1">{option.description}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Preview */}
+                <div className="border-t border-border pt-6">
+                  <Label className="text-sm font-medium mb-4 block">Preview</Label>
+                  <div className="p-6 rounded-2xl bg-muted/50 border border-border">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-foreground" />
+                      <div className="flex-1">
+                        <div className="h-3 w-24 bg-foreground/20 rounded mb-2" />
+                        <div className="h-2 w-16 bg-foreground/10 rounded" />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="h-16 rounded-xl bg-success/20" />
+                      <div className="h-16 rounded-xl bg-destructive/20" />
+                      <div className="h-16 rounded-xl bg-primary/20" />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
