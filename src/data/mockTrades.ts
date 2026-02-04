@@ -265,6 +265,40 @@ export const getSymbolDistribution = (trades: Trade[]) => {
   });
 };
 
+// Get time-based analysis data
+export const getTimeAnalysisData = (trades: Trade[]) => {
+  // Hourly analysis (24 hours)
+  const hourlyData: Array<{ hour: number; pnl: number; trades: number; winRate: number }> = [];
+  for (let h = 0; h < 24; h++) {
+    const hourTrades = trades.filter(t => t.date.getHours() === h);
+    const wins = hourTrades.filter(t => t.pnl > 0).length;
+    const pnl = hourTrades.reduce((sum, t) => sum + t.pnl, 0);
+    hourlyData.push({
+      hour: h,
+      pnl: Number(pnl.toFixed(2)),
+      trades: hourTrades.length,
+      winRate: hourTrades.length > 0 ? (wins / hourTrades.length) * 100 : 0,
+    });
+  }
+
+  // Daily analysis (7 days)
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dailyData: Array<{ day: string; pnl: number; trades: number; winRate: number }> = [];
+  for (let d = 0; d < 7; d++) {
+    const dayTrades = trades.filter(t => t.date.getDay() === d);
+    const wins = dayTrades.filter(t => t.pnl > 0).length;
+    const pnl = dayTrades.reduce((sum, t) => sum + t.pnl, 0);
+    dailyData.push({
+      day: dayNames[d],
+      pnl: Number(pnl.toFixed(2)),
+      trades: dayTrades.length,
+      winRate: dayTrades.length > 0 ? (wins / dayTrades.length) * 100 : 0,
+    });
+  }
+
+  return { hourlyData, dailyData };
+};
+
 // Filter trades based on filter state
 export const filterTrades = (trades: Trade[], filters: {
   symbol: string;

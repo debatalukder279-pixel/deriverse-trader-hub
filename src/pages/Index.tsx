@@ -7,6 +7,7 @@ import { TradesTable } from "@/components/dashboard/TradesTable";
 import { MonthlyBreakdownChart } from "@/components/dashboard/MonthlyBreakdownChart";
 import { PerformanceHeatmap } from "@/components/dashboard/PerformanceHeatmap";
 import { SymbolDistributionChart } from "@/components/dashboard/SymbolDistributionChart";
+import { TradingTimeAnalysis } from "@/components/dashboard/TradingTimeAnalysis";
 import {
   mockTrades,
   calculateMetrics,
@@ -15,6 +16,7 @@ import {
   getMonthlyBreakdown,
   getDailyHeatmapData,
   getSymbolDistribution,
+  getTimeAnalysisData,
   filterTrades,
 } from "@/data/mockTrades";
 import { Trade } from "@/types/trading";
@@ -45,6 +47,7 @@ const Index = () => {
   const monthlyBreakdown = useMemo(() => getMonthlyBreakdown(filteredTrades), [filteredTrades]);
   const heatmapData = useMemo(() => getDailyHeatmapData(filteredTrades), [filteredTrades]);
   const symbolDistribution = useMemo(() => getSymbolDistribution(filteredTrades), [filteredTrades]);
+  const timeAnalysisData = useMemo(() => getTimeAnalysisData(filteredTrades), [filteredTrades]);
 
   const handleAddNote = (tradeId: string, note: string) => {
     setTrades(prev =>
@@ -110,6 +113,9 @@ const Index = () => {
           <MonthlyBreakdownChart data={monthlyBreakdown} />
           <SymbolDistributionChart data={symbolDistribution} />
         </div>
+
+        {/* Time Analysis - Full Width */}
+        <TradingTimeAnalysis data={timeAnalysisData} />
 
         {/* Performance Heatmap - Full Width */}
         <PerformanceHeatmap data={heatmapData} />
