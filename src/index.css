@@ -2,95 +2,122 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Deriverse Trading Dashboard - Design System */
+/* Clean, professional fintech aesthetic */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Background Colors */
+    --background: 220 20% 97%; /* #F5F7FA */
+    --foreground: 0 0% 10%; /* #1A1A1A */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Blue */
+    --primary: 207 90% 54%; /* #2196F3 */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 207 79% 42%; /* #1976D2 */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Light section background */
+    --secondary: 228 33% 93%; /* #E6E9F3 */
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted */
+    --muted: 220 20% 97%;
+    --muted-foreground: 220 5% 46%; /* #5F6368 */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Teal */
+    --accent: 180 39% 40%; /* #3F8F8F */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Success - Green for profits */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Destructive - Red for losses */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    /* Warning - Yellow */
+    --warning: 51 100% 50%; /* #FFEB3B */
+    --warning-hover: 45 100% 47%; /* #FBC02D */
+    --warning-foreground: 0 0% 0%;
 
-    --sidebar-background: 0 0% 98%;
+    /* Borders */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 207 90% 54%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --radius: 0.75rem;
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 5% 46%;
+    --sidebar-primary: 207 90% 54%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 228 50% 95%;
+    --sidebar-accent-foreground: 207 90% 54%;
     --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 207 90% 54%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Chart Colors */
+    --chart-1: 207 90% 54%; /* Blue */
+    --chart-2: 180 39% 40%; /* Teal */
+    --chart-3: 142 71% 45%; /* Green */
+    --chart-4: 0 84% 60%; /* Red */
+    --chart-5: 51 100% 50%; /* Yellow */
+    --chart-6: 270 50% 60%; /* Purple */
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 222 47% 11%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 222 47% 14%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 222 47% 14%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 207 90% 54%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 207 79% 62%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 180 39% 50%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62.8% 30.6%;
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --warning: 51 100% 50%;
+    --warning-hover: 45 100% 47%;
+    --warning-foreground: 0 0% 0%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 207 90% 54%;
+
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 215 20% 65%;
+    --sidebar-primary: 207 90% 54%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 207 90% 54%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 207 90% 54%;
   }
 }
 
@@ -100,6 +127,178 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Card Styles */
+  .dashboard-card {
+    @apply bg-card rounded-xl border border-border/50 p-6;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .dashboard-card:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  }
+
+  /* Metric Card Styles */
+  .metric-card {
+    @apply dashboard-card relative overflow-hidden;
+  }
+
+  .metric-card::before {
+    content: '';
+    @apply absolute top-0 left-0 w-1 h-full rounded-l-xl;
+  }
+
+  .metric-card-profit::before {
+    @apply bg-success;
+  }
+
+  .metric-card-loss::before {
+    @apply bg-destructive;
+  }
+
+  .metric-card-neutral::before {
+    @apply bg-primary;
+  }
+
+  /* Chart Container */
+  .chart-container {
+    @apply dashboard-card;
+  }
+
+  /* Sidebar Active State */
+  .sidebar-item-active {
+    @apply bg-sidebar-accent text-sidebar-accent-foreground font-medium;
+  }
+
+  /* Table Styles */
+  .trade-table {
+    @apply w-full;
+  }
+
+  .trade-table th {
+    @apply text-left text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4;
+  }
+
+  .trade-table td {
+    @apply py-3 px-4 text-sm;
+  }
+
+  .trade-table tbody tr {
+    @apply border-b border-border/50 transition-colors hover:bg-muted/50 cursor-pointer;
+  }
+
+  /* Filter Section */
+  .filter-section {
+    @apply dashboard-card flex flex-wrap items-center gap-4;
+  }
+
+  /* Badge Variants */
+  .badge-long {
+    @apply bg-success/10 text-success border-success/20;
+  }
+
+  .badge-short {
+    @apply bg-destructive/10 text-destructive border-destructive/20;
+  }
+
+  /* Profit/Loss Text */
+  .text-profit {
+    @apply text-success font-semibold;
+  }
+
+  .text-loss {
+    @apply text-destructive font-semibold;
+  }
+
+  /* Button Variants */
+  .btn-filter {
+    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all;
+    @apply bg-primary text-primary-foreground px-4 py-2;
+    @apply hover:bg-[hsl(var(--primary-hover))];
+  }
+
+  .btn-filter-outline {
+    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all;
+    @apply border border-border bg-transparent text-foreground px-4 py-2;
+    @apply hover:bg-muted;
+  }
+
+  /* Upgrade Card */
+  .upgrade-card {
+    @apply rounded-xl p-4 text-warning-foreground;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(207 79% 42%) 100%);
+  }
+
+  /* Scrollbar Styles */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
+
+@layer utilities {
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  }
+
+  /* Glass Effect */
+  .glass-effect {
+    @apply backdrop-blur-sm bg-card/80;
+  }
+
+  /* Animation Utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Number Styles */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
   }
 }
