@@ -20,11 +20,13 @@ interface FilterControlsProps {
   symbol: string;
   dateRange: string;
   tradeType: string;
+  orderType: string;
   customStartDate?: Date;
   customEndDate?: Date;
   onSymbolChange: (value: string) => void;
   onDateRangeChange: (value: string) => void;
   onTradeTypeChange: (value: string) => void;
+  onOrderTypeChange: (value: string) => void;
   onCustomStartDateChange: (date: Date | undefined) => void;
   onCustomEndDateChange: (date: Date | undefined) => void;
   onApply: () => void;
@@ -35,11 +37,13 @@ export function FilterControls({
   symbol,
   dateRange,
   tradeType,
+  orderType,
   customStartDate,
   customEndDate,
   onSymbolChange,
   onDateRangeChange,
   onTradeTypeChange,
+  onOrderTypeChange,
   onCustomStartDateChange,
   onCustomEndDateChange,
   onApply,
@@ -63,6 +67,7 @@ export function FilterControls({
             <SelectItem value="SOL">SOL</SelectItem>
             <SelectItem value="BTC">BTC</SelectItem>
             <SelectItem value="ETH">ETH</SelectItem>
+            <SelectItem value="BONK">BONK</SelectItem>
           </SelectContent>
         </Select>
 
@@ -139,6 +144,19 @@ export function FilterControls({
             <SelectItem value="All">All Types</SelectItem>
             <SelectItem value="Long">Long</SelectItem>
             <SelectItem value="Short">Short</SelectItem>
+          </SelectContent>
+        </Select>
+
+        {/* Order Type Selector */}
+        <Select value={orderType} onValueChange={onOrderTypeChange}>
+          <SelectTrigger className="w-[120px] bg-background">
+            <SelectValue placeholder="Order Type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="All">All Orders</SelectItem>
+            <SelectItem value="Market">Market</SelectItem>
+            <SelectItem value="Limit">Limit</SelectItem>
+            <SelectItem value="Stop">Stop</SelectItem>
           </SelectContent>
         </Select>
       </div>

@@ -22,7 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { mockTrades } from "@/data/mockTrades";
-import { Trade, Symbol, TradeType } from "@/types/trading";
+import { Trade, Symbol, TradeType, OrderType } from "@/types/trading";
 import { Plus, Search, Calendar, Edit2, Trash2 } from "lucide-react";
 
 const Journal = () => {
@@ -35,6 +35,7 @@ const Journal = () => {
   const [formData, setFormData] = useState({
     symbol: "SOL" as Symbol,
     type: "Long" as TradeType,
+    orderType: "Market" as OrderType,
     entryPrice: "",
     exitPrice: "",
     quantity: "",
@@ -66,6 +67,7 @@ const Journal = () => {
     setFormData({
       symbol: "SOL",
       type: "Long",
+      orderType: "Market",
       entryPrice: "",
       exitPrice: "",
       quantity: "",
@@ -117,6 +119,7 @@ const Journal = () => {
         id: `trade-${Date.now()}`,
         symbol: formData.symbol,
         type: formData.type,
+        orderType: formData.orderType,
         entryPrice,
         exitPrice,
         quantity,
@@ -139,6 +142,7 @@ const Journal = () => {
     setFormData({
       symbol: trade.symbol,
       type: trade.type,
+      orderType: trade.orderType,
       entryPrice: trade.entryPrice.toString(),
       exitPrice: trade.exitPrice?.toString() || "",
       quantity: trade.quantity.toString(),
@@ -194,6 +198,7 @@ const Journal = () => {
                 <SelectItem value="SOL">SOL</SelectItem>
                 <SelectItem value="BTC">BTC</SelectItem>
                 <SelectItem value="ETH">ETH</SelectItem>
+                <SelectItem value="BONK">BONK</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -231,6 +236,7 @@ const Journal = () => {
                         <SelectItem value="SOL">SOL</SelectItem>
                         <SelectItem value="BTC">BTC</SelectItem>
                         <SelectItem value="ETH">ETH</SelectItem>
+                        <SelectItem value="BONK">BONK</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
