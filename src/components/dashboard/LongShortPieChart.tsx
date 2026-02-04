@@ -42,10 +42,10 @@ export function LongShortPieChart({ data }: LongShortPieChartProps) {
         </button>
       </div>
       
-      <div className="flex items-center gap-8">
+      <div className="flex flex-col items-center">
         {/* Donut Chart */}
-        <div className="relative w-36 h-36 flex-shrink-0">
-          <span className="absolute -top-2 left-2 text-xs text-muted-foreground">
+        <div className="relative w-40 h-40">
+          <span className="absolute -top-1 left-4 text-xs text-muted-foreground">
             {winsPercent}%
           </span>
           
@@ -55,8 +55,8 @@ export function LongShortPieChart({ data }: LongShortPieChartProps) {
                 data={chartData}
                 cx="50%"
                 cy="50%"
-                innerRadius={42}
-                outerRadius={58}
+                innerRadius={48}
+                outerRadius={65}
                 paddingAngle={2}
                 dataKey="value"
                 stroke="none"
@@ -71,45 +71,33 @@ export function LongShortPieChart({ data }: LongShortPieChartProps) {
           </ResponsiveContainer>
           
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-xl font-bold text-foreground">{total}</span>
+            <span className="text-2xl font-bold text-foreground">{total}</span>
             <span className="text-xs text-muted-foreground">Trades</span>
           </div>
           
-          <span className="absolute -bottom-2 right-2 text-xs text-muted-foreground">
+          <span className="absolute -bottom-1 right-4 text-xs text-muted-foreground">
             {lossesPercent}%
           </span>
         </div>
 
-        {/* Stats */}
-        <div className="flex-1 space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.wins }} />
-              <span className="text-sm text-muted-foreground leading-tight">
-                Total<br />Wins
-              </span>
-            </div>
-            <span className="text-lg font-bold text-foreground">{wins}</span>
+        {/* Stats Row */}
+        <div className="flex items-center justify-center gap-8 mt-6 w-full">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.wins }} />
+            <span className="text-xs text-muted-foreground">Wins</span>
+            <span className="text-sm font-bold text-foreground ml-1">{wins}</span>
           </div>
           
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.losses }} />
-              <span className="text-sm text-muted-foreground leading-tight">
-                Total<br />Losses
-              </span>
-            </div>
-            <span className="text-lg font-bold text-foreground">{losses}</span>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.losses }} />
+            <span className="text-xs text-muted-foreground">Losses</span>
+            <span className="text-sm font-bold text-foreground ml-1">{losses}</span>
           </div>
           
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.breakeven }} />
-              <span className="text-sm text-muted-foreground leading-tight">
-                Break<br />Even
-              </span>
-            </div>
-            <span className="text-lg font-bold text-foreground">{breakeven}</span>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.breakeven }} />
+            <span className="text-xs text-muted-foreground">Even</span>
+            <span className="text-sm font-bold text-foreground ml-1">{breakeven}</span>
           </div>
         </div>
       </div>
