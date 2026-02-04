@@ -6,118 +6,129 @@
 
 @layer base {
   :root {
-    /* Background - Soft lavender gradient base */
-    --background: 270 50% 97%;
-    --foreground: 270 30% 20%;
+    /* Background - Soft blue-tinted white */
+    --background: 228 60% 98%; /* #F7F9FF */
+    --foreground: 230 25% 18%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 270 30% 20%;
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 230 25% 18%;
+    --card-secondary: 228 60% 98%; /* #F7F9FF */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 270 30% 20%;
+    --popover-foreground: 230 25% 18%;
 
-    /* Primary - Vibrant Purple */
-    --primary: 270 70% 60%;
+    /* Primary - Purple Brand #6A5CFF */
+    --primary: 245 100% 68%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 270 70% 50%;
+    --primary-hover: 248 100% 62%; /* Deep purple #5A3FFF */
+    --primary-soft: 245 100% 89%; /* Soft purple #C9C6FF */
 
-    /* Secondary - Soft Pink */
-    --secondary: 300 60% 95%;
-    --secondary-foreground: 270 30% 20%;
+    /* Secondary - Blue accent #5AA6FF */
+    --secondary: 213 100% 67%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-soft: 213 100% 90%; /* Soft blue #CFE3FF */
 
     /* Muted */
-    --muted: 270 30% 95%;
-    --muted-foreground: 270 20% 50%;
+    --muted: 228 40% 96%;
+    --muted-foreground: 230 15% 50%;
 
-    /* Accent - Magenta/Pink */
-    --accent: 320 70% 65%;
+    /* Accent - Deep Purple */
+    --accent: 260 100% 62%; /* #8E5BFF */
     --accent-foreground: 0 0% 100%;
 
-    /* Success - Soft Green */
-    --success: 160 60% 45%;
+    /* Success - Green #37D39A */
+    --success: 156 65% 52%;
     --success-foreground: 0 0% 100%;
+    --success-soft: 156 60% 90%; /* Soft green #CFF4E6 */
 
-    /* Destructive - Soft Red */
-    --destructive: 0 70% 60%;
+    /* Destructive - Red #FF6B6B */
+    --destructive: 0 100% 71%;
     --destructive-foreground: 0 0% 100%;
+    --destructive-soft: 0 100% 92%; /* Soft red #FFD6D6 */
 
-    /* Warning - Soft Orange */
-    --warning: 35 90% 55%;
-    --warning-hover: 35 90% 50%;
+    /* Warning */
+    --warning: 38 100% 60%;
+    --warning-hover: 38 100% 55%;
     --warning-foreground: 0 0% 100%;
 
-    /* Borders - Very subtle */
-    --border: 270 30% 90%;
-    --input: 270 30% 90%;
-    --ring: 270 70% 60%;
+    /* Borders */
+    --border: 228 30% 92%;
+    --input: 228 30% 92%;
+    --ring: 245 100% 68%;
 
-    --radius: 1rem;
+    --radius: 1.375rem; /* 22px for main cards */
+    --radius-widget: 1.125rem; /* 18px for small widgets */
 
-    /* Sidebar - Light with purple accent */
-    --sidebar-background: 270 40% 98%;
-    --sidebar-foreground: 270 20% 50%;
-    --sidebar-primary: 270 70% 60%;
+    /* Sidebar */
+    --sidebar-background: 228 60% 99%;
+    --sidebar-foreground: 230 15% 50%;
+    --sidebar-primary: 245 100% 68%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 270 60% 95%;
-    --sidebar-accent-foreground: 270 70% 50%;
-    --sidebar-border: 270 30% 92%;
-    --sidebar-ring: 270 70% 60%;
-    --sidebar-muted: 270 20% 60%;
+    --sidebar-accent: 245 100% 96%;
+    --sidebar-accent-foreground: 245 100% 58%;
+    --sidebar-border: 228 30% 94%;
+    --sidebar-ring: 245 100% 68%;
+    --sidebar-muted: 230 15% 60%;
 
-    /* Chart Colors - Purple/Pink palette */
-    --chart-1: 270 70% 60%; /* Purple */
-    --chart-2: 320 70% 65%; /* Pink */
-    --chart-3: 300 60% 70%; /* Light Magenta */
-    --chart-4: 250 60% 65%; /* Indigo */
-    --chart-5: 340 70% 65%; /* Rose */
-    --chart-6: 280 50% 55%; /* Deep Purple */
+    /* Chart Colors */
+    --chart-1: 245 100% 68%; /* Primary Purple */
+    --chart-2: 213 100% 67%; /* Blue */
+    --chart-3: 156 65% 52%; /* Green */
+    --chart-4: 0 100% 71%; /* Red */
+    --chart-5: 260 100% 62%; /* Accent Purple */
+    --chart-6: 280 70% 65%; /* Violet */
   }
 
   .dark {
-    --background: 270 30% 8%;
-    --foreground: 270 20% 95%;
+    --background: 230 25% 8%;
+    --foreground: 228 20% 95%;
 
-    --card: 270 30% 12%;
-    --card-foreground: 270 20% 95%;
+    --card: 230 25% 12%;
+    --card-foreground: 228 20% 95%;
+    --card-secondary: 230 25% 15%;
 
-    --popover: 270 30% 12%;
-    --popover-foreground: 270 20% 95%;
+    --popover: 230 25% 12%;
+    --popover-foreground: 228 20% 95%;
 
-    --primary: 270 70% 60%;
+    --primary: 245 100% 68%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 270 70% 70%;
+    --primary-hover: 245 100% 75%;
+    --primary-soft: 245 50% 25%;
 
-    --secondary: 270 30% 18%;
-    --secondary-foreground: 270 20% 95%;
+    --secondary: 213 100% 67%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-soft: 213 40% 25%;
 
-    --muted: 270 30% 18%;
-    --muted-foreground: 270 20% 60%;
+    --muted: 230 25% 18%;
+    --muted-foreground: 228 15% 60%;
 
-    --accent: 320 70% 60%;
+    --accent: 260 100% 65%;
     --accent-foreground: 0 0% 100%;
 
-    --success: 160 60% 45%;
+    --success: 156 65% 48%;
     --success-foreground: 0 0% 100%;
+    --success-soft: 156 40% 20%;
 
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 270 20% 95%;
+    --destructive: 0 80% 60%;
+    --destructive-foreground: 228 20% 95%;
+    --destructive-soft: 0 40% 20%;
 
-    --warning: 35 90% 55%;
-    --warning-hover: 35 90% 60%;
+    --warning: 38 90% 55%;
+    --warning-hover: 38 90% 60%;
     --warning-foreground: 0 0% 100%;
 
-    --border: 270 30% 20%;
-    --input: 270 30% 20%;
-    --ring: 270 70% 60%;
+    --border: 230 25% 20%;
+    --input: 230 25% 20%;
+    --ring: 245 100% 68%;
 
-    --sidebar-background: 270 30% 6%;
-    --sidebar-foreground: 270 20% 65%;
-    --sidebar-primary: 270 70% 60%;
+    --sidebar-background: 230 25% 6%;
+    --sidebar-foreground: 228 15% 65%;
+    --sidebar-primary: 245 100% 68%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 270 30% 18%;
+    --sidebar-accent: 230 25% 18%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 270 30% 18%;
-    --sidebar-ring: 270 70% 60%;
+    --sidebar-border: 230 25% 18%;
+    --sidebar-ring: 245 100% 68%;
   }
 }
 
@@ -133,15 +144,37 @@
 }
 
 @layer components {
-  /* Enhanced Card Styles */
+  /* Enhanced Card Styles with Brand Shadow */
   .dashboard-card {
-    @apply bg-card rounded-2xl border border-border/40 p-5;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.03);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    @apply bg-card p-5;
+    border-radius: 22px;
+    box-shadow: 
+      0px 20px 40px rgba(98, 110, 255, 0.18),
+      0px 6px 16px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
 
   .dashboard-card:hover {
-    box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.06);
+    box-shadow: 
+      0px 24px 48px rgba(98, 110, 255, 0.22),
+      0px 8px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  /* Secondary Card - Soft Background */
+  .dashboard-card-secondary {
+    @apply p-5;
+    background: hsl(var(--card-secondary));
+    border-radius: 18px;
+  }
+
+  /* Widget Card - Smaller Radius */
+  .widget-card {
+    @apply bg-card p-4;
+    border-radius: 18px;
+    box-shadow: 
+      0px 12px 24px rgba(98, 110, 255, 0.12),
+      0px 4px 12px rgba(0, 0, 0, 0.04);
   }
 
   /* Metric Card - Enhanced */
@@ -265,10 +298,21 @@
     @apply hover:bg-muted;
   }
 
-  /* Upgrade Card - Purple/Pink Gradient */
+  /* Upgrade Card - Brand Gradient */
   .upgrade-card {
-    @apply rounded-2xl p-5;
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    @apply p-5;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #6A5CFF 0%, #8E5BFF 50%, #B36CFF 100%);
+  }
+
+  /* Progress Ring Gradient */
+  .progress-gradient {
+    background: linear-gradient(180deg, #6A5CFF 0%, #5AA6FF 100%);
+  }
+
+  /* Invoice/Feature Card Gradient */
+  .feature-gradient {
+    background: linear-gradient(135deg, #6A5CFF 0%, #8E5BFF 50%, #B36CFF 100%);
   }
 
   /* Scrollbar Styles */
