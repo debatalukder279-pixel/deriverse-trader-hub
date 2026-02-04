@@ -8,6 +8,7 @@ import { MonthlyBreakdownChart } from "@/components/dashboard/MonthlyBreakdownCh
 import { PerformanceHeatmap } from "@/components/dashboard/PerformanceHeatmap";
 import { SymbolDistributionChart } from "@/components/dashboard/SymbolDistributionChart";
 import { TradingTimeAnalysis } from "@/components/dashboard/TradingTimeAnalysis";
+import { OverallProgressCard } from "@/components/dashboard/OverallProgressCard";
 import {
   mockTrades,
   calculateMetrics,
@@ -103,9 +104,10 @@ const Index = () => {
         </div>
 
         {/* Charts Row 1 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           <LongShortPieChart data={longShortRatio} />
           <PnLLineChart data={cumulativePnLData} />
+          <OverallProgressCard winRate={metrics.winRate} />
         </div>
 
         {/* Charts Row 2 - New Charts */}
