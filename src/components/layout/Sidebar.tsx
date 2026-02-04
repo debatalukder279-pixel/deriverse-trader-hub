@@ -9,8 +9,19 @@ import {
   LogOut,
   ChevronLeft,
   FileText,
+  ChevronDown,
+  User,
+  CreditCard,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { mockUser } from "@/data/mockTrades";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -115,18 +126,53 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         })}
       </nav>
 
-
-      {/* Logout */}
-      <div className={cn("px-3 pb-6", collapsed && "flex justify-center")}>
-        <button
-          className={cn(
-            "sidebar-item w-full",
-            collapsed && "justify-center px-3"
-          )}
-        >
-          <LogOut className="w-5 h-5" />
-          {!collapsed && <span>Log Out</span>}
-        </button>
+      {/* User Profile Section */}
+      <div className={cn("px-3 pb-6 mt-auto", collapsed && "flex justify-center")}>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              className={cn(
+                "flex items-center gap-3 w-full px-3 py-3 rounded-xl bg-sidebar-accent/30 hover:bg-sidebar-accent/50 transition-all duration-200",
+                collapsed && "justify-center px-2"
+              )}
+            >
+              <Avatar className="h-9 w-9 ring-2 ring-white/10">
+                <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" />
+                <AvatarFallback className="bg-accent/20 text-white text-sm">
+                  {mockUser.name.split(' ').map(n => n[0]).join('')}
+                </AvatarFallback>
+              </Avatar>
+              {!collapsed && (
+                <>
+                  <div className="flex-1 text-left">
+                    <p className="text-sm font-medium text-white truncate">{mockUser.name}</p>
+                    <p className="text-[11px] text-sidebar-foreground truncate">{mockUser.email}</p>
+                  </div>
+                  <ChevronDown className="w-4 h-4 text-sidebar-foreground" />
+                </>
+              )}
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              View Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <CreditCard className="mr-2 h-4 w-4" />
+              Billing
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Settings className="mr-2 h-4 w-4" />
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="text-destructive focus:text-destructive">
+              <LogOut className="mr-2 h-4 w-4" />
+              Log Out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </aside>
   );
