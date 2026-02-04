@@ -36,19 +36,19 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 h-screen bg-sidebar transition-all duration-300 flex flex-col",
+        "fixed left-0 top-0 z-40 h-screen bg-sidebar border-r border-sidebar-border transition-all duration-300 flex flex-col",
         collapsed ? "w-[72px]" : "w-[260px]"
       )}
     >
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-6">
         <div className={cn("flex items-center gap-3", collapsed && "justify-center w-full")}>
-          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
             <TrendingUp className="w-5 h-5 text-primary-foreground" />
           </div>
           {!collapsed && (
             <div>
-              <span className="font-bold text-white text-lg tracking-tight">DERIVERSE</span>
+              <span className="font-bold text-primary text-lg tracking-tight">Deriverse</span>
               <p className="text-[11px] text-sidebar-muted">Trading Dashboard</p>
             </div>
           )}
@@ -59,7 +59,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {!collapsed && (
         <button
           onClick={onToggle}
-          className="flex items-center gap-2 px-5 py-2 text-sidebar-foreground hover:text-white transition-colors text-sm"
+          className="flex items-center gap-2 px-5 py-2 text-sidebar-foreground hover:text-primary transition-colors text-sm"
         >
           <ChevronLeft className="w-4 h-4" />
           <span>Minimize</span>
@@ -147,7 +147,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       )}>
         <button
           className={cn(
-            "sidebar-item w-full text-sidebar-foreground hover:text-white",
+            "sidebar-item w-full text-sidebar-foreground hover:text-primary",
             collapsed && "justify-center px-3"
           )}
         >
