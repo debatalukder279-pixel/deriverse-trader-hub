@@ -20,9 +20,9 @@ export function DrawdownChart({ data }: DrawdownChartProps) {
     if (active && payload && payload.length) {
       const value = payload[0].value;
       return (
-        <div className="bg-card border border-border rounded-lg p-3 shadow-elevated">
-          <p className="text-sm text-muted-foreground mb-1">{label}</p>
-          <p className="text-lg font-bold text-destructive">
+        <div className="bg-card border border-border rounded-lg p-2.5 shadow-lg">
+          <p className="text-xs text-muted-foreground mb-0.5">{label}</p>
+          <p className="text-base font-bold text-destructive">
             -{value.toFixed(2)}%
           </p>
         </div>
@@ -34,47 +34,45 @@ export function DrawdownChart({ data }: DrawdownChartProps) {
   const maxDrawdown = Math.max(...data.map(d => d.drawdown));
 
   return (
-    <div className="chart-container">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h3 className="text-lg font-semibold text-foreground">Drawdown</h3>
-          <p className="text-sm text-muted-foreground">Maximum: -{maxDrawdown.toFixed(2)}%</p>
-        </div>
+    <div className="dashboard-card">
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-foreground">Drawdown</h3>
+        <p className="text-xs text-muted-foreground">Maximum: -{maxDrawdown.toFixed(2)}%</p>
       </div>
-      <div className="h-[300px]">
+      <div className="h-[220px]">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+          <AreaChart data={data} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="0" stroke="hsl(var(--border))" vertical={false} opacity={0.5} />
             <XAxis
               dataKey="date"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
-              dy={10}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
+              dy={8}
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
               tickFormatter={(value) => `-${value}%`}
-              dx={-10}
+              width={40}
               reversed
             />
             <Tooltip content={<CustomTooltip />} />
             <defs>
               <linearGradient id="drawdownGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.4} />
-                <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0.05} />
+                <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0.02} />
               </linearGradient>
             </defs>
             <Area
               type="monotone"
               dataKey="drawdown"
               stroke="hsl(var(--destructive))"
-              strokeWidth={2}
+              strokeWidth={1.5}
               fill="url(#drawdownGradient)"
               dot={false}
-              activeDot={{ r: 5, fill: 'hsl(var(--destructive))', strokeWidth: 2, stroke: 'hsl(var(--card))' }}
+              activeDot={{ r: 4, fill: 'hsl(var(--destructive))', strokeWidth: 2, stroke: 'hsl(var(--card))' }}
             />
           </AreaChart>
         </ResponsiveContainer>

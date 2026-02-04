@@ -44,9 +44,9 @@ export function MonthlyBreakdownChart({ data }: MonthlyBreakdownChartProps) {
       const value = payload[0].value;
       const entry = data.find(d => d.month === label);
       return (
-        <div className="bg-foreground text-background rounded-lg px-4 py-3 shadow-lg">
-          <p className="text-xs text-background/70 mb-1">{label}</p>
-          <p className="text-lg font-bold">
+        <div className="bg-foreground text-background rounded-lg px-3 py-2 shadow-lg">
+          <p className="text-[10px] text-background/70 mb-0.5">{label}</p>
+          <p className="text-base font-bold">
             {view === 'pnl' ? (
               <span className={value >= 0 ? 'text-green-400' : 'text-red-400'}>
                 {value >= 0 ? '+' : ''}${Math.abs(value).toLocaleString()}
@@ -56,7 +56,7 @@ export function MonthlyBreakdownChart({ data }: MonthlyBreakdownChartProps) {
             )}
           </p>
           {view === 'pnl' && entry && (
-            <p className="text-xs text-background/70 mt-1">{entry.trades} trades</p>
+            <p className="text-[10px] text-background/70 mt-0.5">{entry.trades} trades</p>
           )}
         </div>
       );
@@ -65,15 +65,15 @@ export function MonthlyBreakdownChart({ data }: MonthlyBreakdownChartProps) {
   };
 
   return (
-    <div className="chart-container">
-      <div className="section-header">
+    <div className="dashboard-card">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="section-title">Monthly Performance</h3>
-          <p className="section-subtitle">Track your monthly progress</p>
+          <h3 className="text-sm font-semibold text-foreground">Monthly Performance</h3>
+          <p className="text-xs text-muted-foreground">Track your monthly progress</p>
         </div>
         <div className="flex items-center gap-2">
           <Select value={view} onValueChange={(v: 'pnl' | 'trades') => setView(v)}>
-            <SelectTrigger className="w-28 h-9 rounded-xl text-xs">
+            <SelectTrigger className="w-24 h-8 rounded-lg text-xs bg-background border-border/50">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -81,32 +81,31 @@ export function MonthlyBreakdownChart({ data }: MonthlyBreakdownChartProps) {
               <SelectItem value="trades">Trades</SelectItem>
             </SelectContent>
           </Select>
-          <div className="menu-dots">
-            <MoreHorizontal className="w-5 h-5" />
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted cursor-pointer">
+            <MoreHorizontal className="w-4 h-4" />
           </div>
         </div>
       </div>
-      <div className="h-[260px]">
+      <div className="h-[220px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="0" stroke="hsl(var(--border))" vertical={false} />
+            <CartesianGrid strokeDasharray="0" stroke="hsl(var(--border))" vertical={false} opacity={0.5} />
             <XAxis
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
-              dy={10}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
+              dy={8}
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
               tickFormatter={formatYAxis}
-              dx={-5}
-              width={45}
+              width={40}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted))', opacity: 0.3 }} />
-            <Bar dataKey={view} radius={[4, 4, 0, 0]} maxBarSize={32}>
+            <Bar dataKey={view} radius={[3, 3, 0, 0]} maxBarSize={28}>
               {data.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}

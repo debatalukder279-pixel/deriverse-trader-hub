@@ -26,21 +26,19 @@ export function FeesBySymbolChart({ data }: FeesBySymbolChartProps) {
 
   return (
     <div className="dashboard-card">
-      <div className="section-header mb-4">
-        <div>
-          <h3 className="section-title">Fees by Symbol</h3>
-          <p className="section-subtitle">Total: ${totalFees.toLocaleString()}</p>
-        </div>
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-foreground">Fees by Symbol</h3>
+        <p className="text-xs text-muted-foreground">Total: ${totalFees.toLocaleString()}</p>
       </div>
-      <div className="h-[280px]">
+      <div className="h-[220px]">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
               data={data}
               cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={100}
+              cy="45%"
+              innerRadius={50}
+              outerRadius={80}
               paddingAngle={2}
               dataKey="fees"
               nameKey="symbol"
@@ -53,7 +51,8 @@ export function FeesBySymbolChart({ data }: FeesBySymbolChartProps) {
               contentStyle={{
                 backgroundColor: 'hsl(var(--card))',
                 borderColor: 'hsl(var(--border))',
-                borderRadius: '12px',
+                borderRadius: '10px',
+                fontSize: '12px',
               }}
               formatter={(value: number, name: string) => [
                 `$${value.toLocaleString()}`,
@@ -62,9 +61,10 @@ export function FeesBySymbolChart({ data }: FeesBySymbolChartProps) {
             />
             <Legend
               verticalAlign="bottom"
-              height={36}
+              height={28}
+              iconSize={8}
               formatter={(value: string, entry: any) => (
-                <span style={{ color: 'hsl(var(--foreground))' }}>
+                <span style={{ color: 'hsl(var(--foreground))', fontSize: '10px' }}>
                   {value} ({((entry.payload.fees / totalFees) * 100).toFixed(1)}%)
                 </span>
               )}

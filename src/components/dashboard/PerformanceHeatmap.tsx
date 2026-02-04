@@ -105,26 +105,26 @@ export function PerformanceHeatmap({ data }: PerformanceHeatmapProps) {
   };
 
   return (
-    <div className="chart-container">
-      <div className="section-header">
+    <div className="dashboard-card">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="section-title">Performance Heatmap</h3>
-          <p className="section-subtitle">Daily trading activity (12 weeks)</p>
+          <h3 className="text-sm font-semibold text-foreground">Performance Heatmap</h3>
+          <p className="text-xs text-muted-foreground">Daily trading activity (12 weeks)</p>
         </div>
-        <div className="menu-dots">
-          <MoreHorizontal className="w-5 h-5" />
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted cursor-pointer">
+          <MoreHorizontal className="w-4 h-4" />
         </div>
       </div>
       
-      <div className="mt-4">
+      <div className="mt-2">
         {/* Month labels */}
-        <div className="flex ml-8 mb-2">
+        <div className="flex ml-8 mb-1.5">
           {monthLabels.map((label, i) => (
             <div
               key={i}
-              className="text-xs text-muted-foreground"
+              className="text-[10px] text-muted-foreground"
               style={{ 
-                marginLeft: i === 0 ? 0 : `${(label.startWeek - (monthLabels[i - 1]?.startWeek || 0)) * 18 - 20}px`,
+                marginLeft: i === 0 ? 0 : `${(label.startWeek - (monthLabels[i - 1]?.startWeek || 0)) * 16 - 18}px`,
               }}
             >
               {label.month}
@@ -132,26 +132,26 @@ export function PerformanceHeatmap({ data }: PerformanceHeatmapProps) {
           ))}
         </div>
         
-        <div className="flex gap-1">
+        <div className="flex gap-0.5">
           {/* Day labels */}
-          <div className="flex flex-col gap-1 pr-2">
+          <div className="flex flex-col gap-0.5 pr-1.5">
             {days.map((day, i) => (
-              <div key={day} className="h-[14px] text-[10px] text-muted-foreground leading-[14px]">
+              <div key={day} className="h-[12px] text-[9px] text-muted-foreground leading-[12px]">
                 {i % 2 === 1 ? day : ''}
               </div>
             ))}
           </div>
           
           {/* Heatmap grid */}
-          <div className="flex gap-1">
+          <div className="flex gap-0.5">
             {weeks.map((week, weekIndex) => (
-              <div key={weekIndex} className="flex flex-col gap-1">
+              <div key={weekIndex} className="flex flex-col gap-0.5">
                 {week.map((day, dayIndex) => (
                   <Tooltip key={dayIndex}>
                     <TooltipTrigger asChild>
                       <div
                         className={cn(
-                          "w-[14px] h-[14px] rounded-sm cursor-pointer transition-all hover:ring-2 hover:ring-primary/50",
+                          "w-[12px] h-[12px] rounded-sm cursor-pointer transition-all hover:ring-1 hover:ring-primary/50",
                           day ? getColor(day.pnl, day.trades) : 'bg-muted/30'
                         )}
                       />
@@ -180,14 +180,14 @@ export function PerformanceHeatmap({ data }: PerformanceHeatmapProps) {
         </div>
         
         {/* Legend */}
-        <div className="flex items-center justify-end gap-2 mt-4 text-xs text-muted-foreground">
+        <div className="flex items-center justify-end gap-1.5 mt-3 text-[10px] text-muted-foreground">
           <span>Less</span>
-          <div className="flex gap-1">
-            <div className="w-3 h-3 rounded-sm bg-destructive" />
-            <div className="w-3 h-3 rounded-sm bg-destructive/60" />
-            <div className="w-3 h-3 rounded-sm bg-muted" />
-            <div className="w-3 h-3 rounded-sm bg-success/60" />
-            <div className="w-3 h-3 rounded-sm bg-success" />
+          <div className="flex gap-0.5">
+            <div className="w-2.5 h-2.5 rounded-sm bg-destructive" />
+            <div className="w-2.5 h-2.5 rounded-sm bg-destructive/60" />
+            <div className="w-2.5 h-2.5 rounded-sm bg-muted" />
+            <div className="w-2.5 h-2.5 rounded-sm bg-success/60" />
+            <div className="w-2.5 h-2.5 rounded-sm bg-success" />
           </div>
           <span>More</span>
         </div>

@@ -32,20 +32,20 @@ export function LongShortPieChart({ data }: LongShortPieChartProps) {
 
   return (
     <div className="dashboard-card">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-base font-semibold text-foreground">Trade Statistics</h3>
-          <p className="text-sm text-muted-foreground">Win/Loss distribution</p>
+          <h3 className="text-sm font-semibold text-foreground">Trade Statistics</h3>
+          <p className="text-xs text-muted-foreground">Win/Loss distribution</p>
         </div>
-        <button className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors">
-          <MoreHorizontal className="w-5 h-5" />
+        <button className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors">
+          <MoreHorizontal className="w-4 h-4" />
         </button>
       </div>
       
       <div className="flex flex-col items-center">
         {/* Donut Chart */}
-        <div className="relative w-40 h-40">
-          <span className="absolute -top-1 left-4 text-xs text-muted-foreground">
+        <div className="relative w-36 h-36">
+          <span className="absolute -top-1 left-3 text-[10px] text-muted-foreground">
             {winsPercent}%
           </span>
           
@@ -55,8 +55,8 @@ export function LongShortPieChart({ data }: LongShortPieChartProps) {
                 data={chartData}
                 cx="50%"
                 cy="50%"
-                innerRadius={48}
-                outerRadius={65}
+                innerRadius={42}
+                outerRadius={58}
                 paddingAngle={2}
                 dataKey="value"
                 stroke="none"
@@ -71,33 +71,33 @@ export function LongShortPieChart({ data }: LongShortPieChartProps) {
           </ResponsiveContainer>
           
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-2xl font-bold text-foreground">{total}</span>
-            <span className="text-xs text-muted-foreground">Trades</span>
+            <span className="text-xl font-bold text-foreground">{total}</span>
+            <span className="text-[10px] text-muted-foreground">Trades</span>
           </div>
           
-          <span className="absolute -bottom-1 right-4 text-xs text-muted-foreground">
+          <span className="absolute -bottom-1 right-3 text-[10px] text-muted-foreground">
             {lossesPercent}%
           </span>
         </div>
 
         {/* Stats Row */}
-        <div className="flex items-center justify-center gap-8 mt-6 w-full">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-center gap-6 mt-4 w-full">
+          <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.wins }} />
-            <span className="text-xs text-muted-foreground">Wins</span>
-            <span className="text-sm font-bold text-foreground ml-1">{wins}</span>
+            <span className="text-[10px] text-muted-foreground">Wins</span>
+            <span className="text-xs font-bold text-foreground ml-0.5">{wins}</span>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.losses }} />
-            <span className="text-xs text-muted-foreground">Losses</span>
-            <span className="text-sm font-bold text-foreground ml-1">{losses}</span>
+            <span className="text-[10px] text-muted-foreground">Losses</span>
+            <span className="text-xs font-bold text-foreground ml-0.5">{losses}</span>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.breakeven }} />
-            <span className="text-xs text-muted-foreground">Even</span>
-            <span className="text-sm font-bold text-foreground ml-1">{breakeven}</span>
+            <span className="text-[10px] text-muted-foreground">Even</span>
+            <span className="text-xs font-bold text-foreground ml-0.5">{breakeven}</span>
           </div>
         </div>
       </div>

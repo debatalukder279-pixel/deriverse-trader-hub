@@ -17,45 +17,38 @@ interface WinRateBySymbolChartProps {
 }
 
 export function WinRateBySymbolChart({ data }: WinRateBySymbolChartProps) {
-  const symbolColors: Record<string, string> = {
-    SOL: 'hsl(var(--chart-1))',
-    BTC: 'hsl(var(--chart-5))',
-    ETH: 'hsl(var(--chart-6))',
-    BONK: 'hsl(var(--chart-2))',
-  };
-
   return (
     <div className="dashboard-card">
-      <div className="section-header mb-4">
-        <div>
-          <h3 className="section-title">Win Rate by Symbol</h3>
-          <p className="section-subtitle">Performance comparison</p>
-        </div>
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-foreground">Win Rate by Symbol</h3>
+        <p className="text-xs text-muted-foreground">Performance comparison</p>
       </div>
-      <div className="h-[280px]">
+      <div className="h-[220px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+            <CartesianGrid strokeDasharray="0" stroke="hsl(var(--border))" vertical={false} opacity={0.5} />
             <XAxis
               dataKey="symbol"
-              fontSize={12}
+              fontSize={10}
               tickLine={false}
               axisLine={false}
               stroke="hsl(var(--muted-foreground))"
             />
             <YAxis
-              fontSize={11}
+              fontSize={10}
               tickLine={false}
               axisLine={false}
               stroke="hsl(var(--muted-foreground))"
               tickFormatter={(value) => `${value}%`}
               domain={[0, 100]}
+              width={35}
             />
             <Tooltip
               contentStyle={{
                 backgroundColor: 'hsl(var(--card))',
                 borderColor: 'hsl(var(--border))',
-                borderRadius: '12px',
+                borderRadius: '10px',
+                fontSize: '12px',
               }}
               formatter={(value: number, name: string, props: any) => [
                 `${value.toFixed(1)}%`,
@@ -64,7 +57,7 @@ export function WinRateBySymbolChart({ data }: WinRateBySymbolChartProps) {
             />
             <Bar 
               dataKey="winRate" 
-              radius={[4, 4, 0, 0]}
+              radius={[3, 3, 0, 0]}
               fill="hsl(var(--primary))"
             />
           </BarChart>

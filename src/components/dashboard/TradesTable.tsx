@@ -122,15 +122,13 @@ export function TradesTable({ trades, onAddNote }: TradesTableProps) {
 
   return (
     <div className="dashboard-card">
-      <div className="section-header">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="section-title">Trade History</h3>
-          <p className="section-subtitle">{trades.length} total trades</p>
+          <h3 className="text-sm font-semibold text-foreground">Trade History</h3>
+          <p className="text-xs text-muted-foreground">{trades.length} total trades</p>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="menu-dots">
-            <MoreHorizontal className="w-5 h-5" />
-          </div>
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted cursor-pointer">
+          <MoreHorizontal className="w-4 h-4" />
         </div>
       </div>
 
@@ -138,46 +136,46 @@ export function TradesTable({ trades, onAddNote }: TradesTableProps) {
         <table className="trade-table">
           <thead>
             <tr className="border-b border-border/40">
-              <th>No</th>
-              <th>
+              <th className="text-[10px]">No</th>
+              <th className="text-[10px]">
                 <button onClick={() => handleSort('date')} className="flex items-center hover:text-foreground transition-colors">
                   Date <SortIcon field="date" />
                 </button>
               </th>
-              <th>
+              <th className="text-[10px]">
                 <button onClick={() => handleSort('symbol')} className="flex items-center hover:text-foreground transition-colors">
                   Symbol <SortIcon field="symbol" />
                 </button>
               </th>
-              <th>
+              <th className="text-[10px]">
                 <button onClick={() => handleSort('type')} className="flex items-center hover:text-foreground transition-colors">
                   Type <SortIcon field="type" />
                 </button>
               </th>
-              <th>
+              <th className="text-[10px]">
                 <button onClick={() => handleSort('orderType')} className="flex items-center hover:text-foreground transition-colors">
                   Order <SortIcon field="orderType" />
                 </button>
               </th>
-              <th>Entry / Exit</th>
-              <th>
+              <th className="text-[10px]">Entry / Exit</th>
+              <th className="text-[10px]">
                 <button onClick={() => handleSort('quantity')} className="flex items-center hover:text-foreground transition-colors">
                   Size <SortIcon field="quantity" />
                 </button>
               </th>
-              <th>
+              <th className="text-[10px]">
                 <button onClick={() => handleSort('pnl')} className="flex items-center hover:text-foreground transition-colors">
                   P&L <SortIcon field="pnl" />
                 </button>
               </th>
-              <th>P&L %</th>
-              <th>
+              <th className="text-[10px]">P&L %</th>
+              <th className="text-[10px]">
                 <button onClick={() => handleSort('fees')} className="flex items-center hover:text-foreground transition-colors">
                   Fees <SortIcon field="fees" />
                 </button>
               </th>
-              <th>Duration</th>
-              <th>Actions</th>
+              <th className="text-[10px]">Duration</th>
+              <th className="text-[10px]">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -188,66 +186,66 @@ export function TradesTable({ trades, onAddNote }: TradesTableProps) {
               
               return (
                 <tr key={trade.id} className="animate-fade-in hover:bg-muted/30 cursor-pointer">
-                  <td className="text-muted-foreground font-medium">
+                  <td className="text-muted-foreground font-medium text-xs py-3 px-3">
                     {startIndex + index + 1}
                   </td>
-                  <td className="text-muted-foreground">
+                  <td className="text-muted-foreground text-xs py-3 px-3">
                     <div>
                       {format(trade.date, 'dd/MM/yyyy')}
-                      <span className="ml-2 text-xs">{format(trade.date, 'HH:mm')}</span>
+                      <span className="ml-1.5 text-[10px]">{format(trade.date, 'HH:mm')}</span>
                     </div>
                   </td>
-                  <td>
-                    <div className="flex items-center gap-2">
-                      <Avatar className={cn("h-7 w-7", symbolColors[trade.symbol])}>
-                        <AvatarFallback className="text-xs font-semibold bg-transparent">
+                  <td className="py-3 px-3">
+                    <div className="flex items-center gap-1.5">
+                      <Avatar className={cn("h-6 w-6", symbolColors[trade.symbol])}>
+                        <AvatarFallback className="text-[10px] font-semibold bg-transparent">
                           {trade.symbol.charAt(0)}
                         </AvatarFallback>
                       </Avatar>
-                      <span className="font-medium text-foreground">{trade.symbol}</span>
+                      <span className="font-medium text-foreground text-xs">{trade.symbol}</span>
                     </div>
                   </td>
-                  <td>
+                  <td className="py-3 px-3">
                     <Badge
                       variant="outline"
                       className={cn(
-                        "rounded-full px-2 text-xs",
+                        "rounded-full px-1.5 text-[10px]",
                         trade.type === 'Long' ? 'badge-long' : 'badge-short'
                       )}
                     >
                       {trade.type}
                     </Badge>
                   </td>
-                  <td>
-                    <Badge variant="secondary" className="rounded-full px-2 text-xs">
+                  <td className="py-3 px-3">
+                    <Badge variant="secondary" className="rounded-full px-1.5 text-[10px]">
                       {trade.orderType}
                     </Badge>
                   </td>
-                  <td className="tabular-nums text-muted-foreground text-xs">
+                  <td className="tabular-nums text-muted-foreground text-[10px] py-3 px-3">
                     {formatPrice(trade.entryPrice, trade.symbol)} → {trade.exitPrice ? formatPrice(trade.exitPrice, trade.symbol) : '-'}
                   </td>
-                  <td className="tabular-nums text-muted-foreground">
+                  <td className="tabular-nums text-muted-foreground text-xs py-3 px-3">
                     {trade.symbol === 'BONK' ? trade.quantity.toLocaleString() : trade.quantity}
                   </td>
-                  <td className={cn("tabular-nums font-semibold", trade.pnl >= 0 ? 'text-success' : 'text-destructive')}>
+                  <td className={cn("tabular-nums font-semibold text-xs py-3 px-3", trade.pnl >= 0 ? 'text-success' : 'text-destructive')}>
                     {trade.pnl >= 0 ? '+' : '-'}{formatPnL(trade.pnl)}
                   </td>
-                  <td className={cn("tabular-nums text-xs", trade.pnl >= 0 ? 'text-success' : 'text-destructive')}>
+                  <td className={cn("tabular-nums text-[10px] py-3 px-3", trade.pnl >= 0 ? 'text-success' : 'text-destructive')}>
                     {pnlPercent >= 0 ? '+' : ''}{pnlPercent.toFixed(2)}%
                   </td>
-                  <td className="tabular-nums text-muted-foreground text-xs">
+                  <td className="tabular-nums text-muted-foreground text-[10px] py-3 px-3">
                     ${trade.fees.toFixed(2)}
                   </td>
-                  <td className="text-muted-foreground text-xs">
+                  <td className="text-muted-foreground text-[10px] py-3 px-3">
                     {formatDuration(trade)}
                   </td>
-                  <td>
+                  <td className="py-3 px-3">
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button 
                           variant="ghost" 
                           size="sm"
-                          className="h-7 px-2"
+                          className="h-6 w-6 p-0"
                           onClick={() => {
                             setSelectedTrade(trade);
                             setNoteText(trade.notes || "");
@@ -292,30 +290,30 @@ export function TradesTable({ trades, onAddNote }: TradesTableProps) {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/40">
-          <p className="text-sm text-muted-foreground">
+        <div className="flex items-center justify-between mt-4 pt-3 border-t border-border/40">
+          <p className="text-xs text-muted-foreground">
             Showing {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, trades.length)} of {trades.length}
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="rounded-xl"
+              className="rounded-lg h-7 w-7 p-0"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-3 h-3" />
             </Button>
-            {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
               let page: number;
-              if (totalPages <= 7) {
+              if (totalPages <= 5) {
                 page = i + 1;
-              } else if (currentPage <= 4) {
+              } else if (currentPage <= 3) {
                 page = i + 1;
-              } else if (currentPage >= totalPages - 3) {
-                page = totalPages - 6 + i;
+              } else if (currentPage >= totalPages - 2) {
+                page = totalPages - 4 + i;
               } else {
-                page = currentPage - 3 + i;
+                page = currentPage - 2 + i;
               }
               return (
                 <Button
@@ -323,7 +321,7 @@ export function TradesTable({ trades, onAddNote }: TradesTableProps) {
                   variant={currentPage === page ? "default" : "outline"}
                   size="sm"
                   onClick={() => setCurrentPage(page)}
-                  className="rounded-xl w-9"
+                  className="rounded-lg h-7 w-7 p-0 text-xs"
                 >
                   {page}
                 </Button>
@@ -334,9 +332,9 @@ export function TradesTable({ trades, onAddNote }: TradesTableProps) {
               size="sm"
               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="rounded-xl"
+              className="rounded-lg h-7 w-7 p-0"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-3 h-3" />
             </Button>
           </div>
         </div>
