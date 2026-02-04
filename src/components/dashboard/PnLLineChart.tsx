@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
   ReferenceLine,
 } from "recharts";
+import { MoreHorizontal } from "lucide-react";
 
 interface PnLLineChartProps {
   data: Array<{
@@ -19,9 +20,9 @@ interface PnLLineChartProps {
 export function PnLLineChart({ data }: PnLLineChartProps) {
   const formatYAxis = (value: number) => {
     if (Math.abs(value) >= 1000) {
-      return `$${(value / 1000).toFixed(1)}K`;
+      return `${(value / 1000).toFixed(0)}k`;
     }
-    return `$${value}`;
+    return `${value}`;
   };
 
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -29,12 +30,27 @@ export function PnLLineChart({ data }: PnLLineChartProps) {
       const value = payload[0].value;
       const isPositive = value >= 0;
       return (
-        <div className="bg-card border border-border rounded-lg p-3 shadow-elevated">
-          <p className="text-sm text-muted-foreground mb-1">{label}</p>
-          <p className={`text-lg font-bold ${isPositive ? 'text-success' : 'text-destructive'}`}>
-            {isPositive ? '+' : ''}{formatYAxis(value)}
-          </p>
+        <div className="bg-foreground text-background rounded-lg px-3 py-2 shadow-lg">
+          <div className="flex items-center gap-2">
+            <div className={`w-2 h-2 rounded-full ${isPositive ? 'bg-success' : 'bg-destructive'}`} />
+            <span className="text-sm font-semibold">${Math.abs(value).toLocaleString()}</span>
+          </div>
         </div>
+      );
+    }
+    return null;
+  };
+
+  const CustomDot = (props: any) => {
+    const { cx, cy, payload, index } = props;
+    // Show dot only for specific highlighted point (e.g., highest value)
+    const maxValue = Math.max(...data.map(d => d.pnl));
+    if (payload.pnl === maxValue) {
+      return (
+        <g>
+          <circle cx={cx} cy={cy} r={6} fill="hsl(var(--primary))" />
+          <circle cx={cx} cy={cy} r={3} fill="white" />
+        </g>
       );
     }
     return null;
@@ -42,16 +58,19 @@ export function PnLLineChart({ data }: PnLLineChartProps) {
 
   return (
     <div className="chart-container">
-      <div className="flex items-center justify-between mb-6">
+      <div className="section-header">
         <div>
-          <h3 className="text-lg font-semibold text-foreground">Cumulative P&L</h3>
-          <p className="text-sm text-muted-foreground">Track your profit over time</p>
+          <h3 className="section-title">Sales Analytics</h3>
+          <p className="section-subtitle">Cumulative P&L over time</p>
+        </div>
+        <div className="menu-dots">
+          <MoreHorizontal className="w-5 h-5" />
         </div>
       </div>
-      <div className="h-[300px]">
+      <div className="h-[280px]">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+          <LineChart data={data} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="0" stroke="hsl(var(--border))" vertical={false} />
             <XAxis
               dataKey="date"
               axisLine={false}
@@ -65,22 +84,16 @@ export function PnLLineChart({ data }: PnLLineChartProps) {
               tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
               tickFormatter={formatYAxis}
               dx={-10}
+              width={40}
             />
-            <Tooltip content={<CustomTooltip />} />
-            <ReferenceLine y={0} stroke="hsl(var(--border))" strokeDasharray="3 3" />
-            <defs>
-              <linearGradient id="pnlGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
-              </linearGradient>
-            </defs>
+            <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'hsl(var(--border))', strokeDasharray: '4 4' }} />
             <Line
               type="monotone"
               dataKey="pnl"
               stroke="hsl(var(--primary))"
-              strokeWidth={2.5}
-              dot={false}
-              activeDot={{ r: 6, fill: 'hsl(var(--primary))', strokeWidth: 2, stroke: 'hsl(var(--card))' }}
+              strokeWidth={2}
+              dot={<CustomDot />}
+              activeDot={{ r: 6, fill: 'hsl(var(--primary))', strokeWidth: 0 }}
             />
           </LineChart>
         </ResponsiveContainer>

@@ -2,90 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Deriverse Trading Dashboard - Design System */
-/* Clean, professional fintech aesthetic */
+/* Deriverse Trading Dashboard - Enhanced Design System */
 
 @layer base {
   :root {
     /* Background Colors */
     --background: 220 20% 97%; /* #F5F7FA */
-    --foreground: 0 0% 10%; /* #1A1A1A */
+    --foreground: 222 47% 11%;
 
-    --card: 0 0% 100%; /* #FFFFFF */
-    --card-foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+    --popover-foreground: 222 47% 11%;
 
     /* Primary - Blue */
-    --primary: 207 90% 54%; /* #2196F3 */
+    --primary: 231 62% 60%; /* Softer blue like reference */
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 207 79% 42%; /* #1976D2 */
+    --primary-hover: 231 62% 50%;
 
-    /* Secondary - Light section background */
-    --secondary: 228 33% 93%; /* #E6E9F3 */
-    --secondary-foreground: 0 0% 10%;
+    /* Secondary */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
 
     /* Muted */
-    --muted: 220 20% 97%;
-    --muted-foreground: 220 5% 46%; /* #5F6368 */
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    /* Accent - Teal */
-    --accent: 180 39% 40%; /* #3F8F8F */
+    /* Accent - Purple/Indigo */
+    --accent: 250 60% 60%;
     --accent-foreground: 0 0% 100%;
 
-    /* Success - Green for profits */
+    /* Success - Green */
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
-    /* Destructive - Red for losses */
+    /* Destructive - Red */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Warning - Yellow */
-    --warning: 51 100% 50%; /* #FFEB3B */
-    --warning-hover: 45 100% 47%; /* #FBC02D */
-    --warning-foreground: 0 0% 0%;
+    /* Warning - Orange/Yellow */
+    --warning: 38 92% 50%;
+    --warning-hover: 38 92% 45%;
+    --warning-foreground: 0 0% 100%;
 
     /* Borders */
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 207 90% 54%;
+    --ring: 231 62% 60%;
 
     --radius: 0.75rem;
 
-    /* Sidebar */
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 5% 46%;
-    --sidebar-primary: 207 90% 54%;
+    /* Sidebar - Dark Navy */
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 220 14% 70%;
+    --sidebar-primary: 231 62% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 228 50% 95%;
-    --sidebar-accent-foreground: 207 90% 54%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 207 90% 54%;
+    --sidebar-accent: 222 47% 16%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 222 47% 16%;
+    --sidebar-ring: 231 62% 60%;
+    --sidebar-muted: 220 9% 46%;
 
     /* Chart Colors */
-    --chart-1: 207 90% 54%; /* Blue */
-    --chart-2: 180 39% 40%; /* Teal */
+    --chart-1: 231 62% 60%; /* Blue */
+    --chart-2: 250 60% 60%; /* Purple */
     --chart-3: 142 71% 45%; /* Green */
     --chart-4: 0 84% 60%; /* Red */
-    --chart-5: 51 100% 50%; /* Yellow */
-    --chart-6: 270 50% 60%; /* Purple */
+    --chart-5: 38 92% 50%; /* Orange */
+    --chart-6: 180 60% 45%; /* Teal */
   }
 
   .dark {
-    --background: 222 47% 11%;
+    --background: 222 47% 8%;
     --foreground: 210 40% 98%;
 
-    --card: 222 47% 14%;
+    --card: 222 47% 11%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 47% 14%;
+    --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 207 90% 54%;
+    --primary: 231 62% 60%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 207 79% 62%;
+    --primary-hover: 231 62% 70%;
 
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
@@ -93,31 +93,31 @@
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 180 39% 50%;
+    --accent: 250 60% 60%;
     --accent-foreground: 0 0% 100%;
 
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
-    --destructive: 0 62% 30%;
+    --destructive: 0 62% 50%;
     --destructive-foreground: 210 40% 98%;
 
-    --warning: 51 100% 50%;
-    --warning-hover: 45 100% 47%;
-    --warning-foreground: 0 0% 0%;
+    --warning: 38 92% 50%;
+    --warning-hover: 38 92% 55%;
+    --warning-foreground: 0 0% 100%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 207 90% 54%;
+    --border: 217 33% 20%;
+    --input: 217 33% 20%;
+    --ring: 231 62% 60%;
 
-    --sidebar-background: 222 47% 11%;
+    --sidebar-background: 222 47% 6%;
     --sidebar-foreground: 215 20% 65%;
-    --sidebar-primary: 207 90% 54%;
+    --sidebar-primary: 231 62% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 217 33% 17%;
-    --sidebar-accent-foreground: 207 90% 54%;
+    --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 207 90% 54%;
+    --sidebar-ring: 231 62% 60%;
   }
 }
 
@@ -133,37 +133,44 @@
 }
 
 @layer components {
-  /* Card Styles */
+  /* Enhanced Card Styles */
   .dashboard-card {
-    @apply bg-card rounded-xl border border-border/50 p-6;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+    @apply bg-card rounded-2xl border border-border/40 p-5;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.03);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
 
   .dashboard-card:hover {
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.06);
   }
 
-  /* Metric Card Styles */
+  /* Metric Card - Enhanced */
   .metric-card {
-    @apply dashboard-card relative overflow-hidden;
+    @apply dashboard-card relative;
   }
 
-  .metric-card::before {
-    content: '';
-    @apply absolute top-0 left-0 w-1 h-full rounded-l-xl;
+  .metric-icon-box {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center;
   }
 
-  .metric-card-profit::before {
-    @apply bg-success;
+  .metric-icon-box-blue {
+    @apply bg-primary/10 text-primary;
   }
 
-  .metric-card-loss::before {
-    @apply bg-destructive;
+  .metric-icon-box-green {
+    @apply bg-success/10 text-success;
   }
 
-  .metric-card-neutral::before {
-    @apply bg-primary;
+  .metric-icon-box-purple {
+    @apply bg-accent/10 text-accent;
+  }
+
+  .metric-icon-box-orange {
+    @apply bg-warning/10 text-warning;
+  }
+
+  .metric-icon-box-red {
+    @apply bg-destructive/10 text-destructive;
   }
 
   /* Chart Container */
@@ -172,6 +179,14 @@
   }
 
   /* Sidebar Active State */
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-sidebar-foreground;
+  }
+
+  .sidebar-item:hover {
+    @apply bg-sidebar-accent text-sidebar-accent-foreground;
+  }
+
   .sidebar-item-active {
     @apply bg-sidebar-accent text-sidebar-accent-foreground font-medium;
   }
@@ -186,11 +201,11 @@
   }
 
   .trade-table td {
-    @apply py-3 px-4 text-sm;
+    @apply py-4 px-4 text-sm;
   }
 
   .trade-table tbody tr {
-    @apply border-b border-border/50 transition-colors hover:bg-muted/50 cursor-pointer;
+    @apply border-b border-border/40 transition-colors hover:bg-muted/30 cursor-pointer;
   }
 
   /* Filter Section */
@@ -200,11 +215,19 @@
 
   /* Badge Variants */
   .badge-long {
-    @apply bg-success/10 text-success border-success/20;
+    @apply bg-success/10 text-success border-0;
   }
 
   .badge-short {
-    @apply bg-destructive/10 text-destructive border-destructive/20;
+    @apply bg-destructive/10 text-destructive border-0;
+  }
+
+  .badge-paid {
+    @apply bg-success/10 text-success border-0 font-medium;
+  }
+
+  .badge-pending {
+    @apply bg-warning/10 text-warning border-0 font-medium;
   }
 
   /* Profit/Loss Text */
@@ -216,23 +239,36 @@
     @apply text-destructive font-semibold;
   }
 
-  /* Button Variants */
-  .btn-filter {
-    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all;
-    @apply bg-primary text-primary-foreground px-4 py-2;
-    @apply hover:bg-[hsl(var(--primary-hover))];
+  /* Change Indicator */
+  .change-indicator {
+    @apply inline-flex items-center gap-1 text-xs font-medium;
   }
 
-  .btn-filter-outline {
-    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all;
-    @apply border border-border bg-transparent text-foreground px-4 py-2;
+  .change-indicator-up {
+    @apply text-success;
+  }
+
+  .change-indicator-down {
+    @apply text-destructive;
+  }
+
+  /* Button Variants */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all;
+    @apply bg-primary text-primary-foreground px-5 py-2.5;
+    @apply hover:bg-primary-hover;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all;
+    @apply border border-border bg-transparent text-foreground px-5 py-2.5;
     @apply hover:bg-muted;
   }
 
-  /* Upgrade Card */
+  /* Upgrade Card - Dark Sidebar */
   .upgrade-card {
-    @apply rounded-xl p-4 text-warning-foreground;
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(207 79% 42%) 100%);
+    @apply rounded-2xl p-5;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(250 60% 50%) 100%);
   }
 
   /* Scrollbar Styles */
@@ -252,29 +288,36 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     @apply bg-muted-foreground/30;
   }
+
+  /* Section Header */
+  .section-header {
+    @apply flex items-center justify-between mb-5;
+  }
+
+  .section-title {
+    @apply text-base font-semibold text-foreground;
+  }
+
+  .section-subtitle {
+    @apply text-sm text-muted-foreground;
+  }
+
+  /* Menu Dots */
+  .menu-dots {
+    @apply w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors cursor-pointer;
+  }
 }
 
 @layer utilities {
-  /* Gradient Text */
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
-  }
-
-  /* Glass Effect */
-  .glass-effect {
-    @apply backdrop-blur-sm bg-card/80;
-  }
-
   /* Animation Utilities */
   .animate-fade-in {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.4s ease-out;
   }
 
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
@@ -289,7 +332,7 @@
   @keyframes slideIn {
     from {
       opacity: 0;
-      transform: translateX(-10px);
+      transform: translateX(-8px);
     }
     to {
       opacity: 1;
@@ -301,4 +344,10 @@
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
+
+  /* Stagger animation delays */
+  .delay-75 { animation-delay: 75ms; }
+  .delay-150 { animation-delay: 150ms; }
+  .delay-225 { animation-delay: 225ms; }
+  .delay-300 { animation-delay: 300ms; }
 }

@@ -97,33 +97,33 @@ const Analytics = () => {
     <DashboardLayout title="Advanced Analytics" subtitle="Deep dive into your trading performance">
       <div className="space-y-6 animate-fade-in">
         {/* Key Performance Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           <MetricCard
             title="Average Win"
             value={formatCurrency(avgWin)}
             icon={TrendingUp}
-            variant="profit"
+            iconColor="green"
             subtitle="Per winning trade"
           />
           <MetricCard
             title="Average Loss"
             value={formatCurrency(avgLoss)}
             icon={TrendingDown}
-            variant="loss"
+            iconColor="red"
             subtitle="Per losing trade"
           />
           <MetricCard
             title="Profit Factor"
             value={profitFactor.toFixed(2)}
             icon={Target}
-            variant={profitFactor >= 1.5 ? "profit" : profitFactor >= 1 ? "neutral" : "loss"}
+            iconColor={profitFactor >= 1.5 ? "green" : profitFactor >= 1 ? "blue" : "red"}
             subtitle="Win/Loss ratio"
           />
           <MetricCard
             title="Expectancy"
             value={formatCurrency((avgWin * (metrics.winRate / 100)) - (avgLoss * (1 - metrics.winRate / 100)))}
             icon={Zap}
-            variant="neutral"
+            iconColor="purple"
             subtitle="Expected per trade"
           />
         </div>

@@ -12,14 +12,15 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { format } from "date-fns";
-import { MessageSquarePlus, Download, ChevronLeft, ChevronRight } from "lucide-react";
+import { MessageSquarePlus, Download, ChevronLeft, ChevronRight, Filter, MoreHorizontal } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface TradesTableProps {
   trades: Trade[];
   onAddNote: (tradeId: string, note: string) => void;
 }
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 8;
 
 export function TradesTable({ trades, onAddNote }: TradesTableProps) {
   const [selectedTrade, setSelectedTrade] = useState<Trade | null>(null);
@@ -34,12 +35,11 @@ export function TradesTable({ trades, onAddNote }: TradesTableProps) {
     if (symbol === 'BTC') {
       return `$${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
-    return `$${price.toFixed(4)}`;
+    return `$${price.toFixed(2)}`;
   };
 
   const formatPnL = (pnl: number) => {
-    const formatted = `$${Math.abs(pnl).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    return pnl >= 0 ? `+${formatted}` : `-${formatted}`;
+    return `$${Math.abs(pnl).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
   };
 
   const handleSaveNote = () => {
@@ -74,117 +74,94 @@ export function TradesTable({ trades, onAddNote }: TradesTableProps) {
     URL.revokeObjectURL(url);
   };
 
+  const symbolColors: Record<string, string> = {
+    SOL: 'bg-purple-100 text-purple-600',
+    BTC: 'bg-orange-100 text-orange-600',
+    ETH: 'bg-blue-100 text-blue-600',
+  };
+
   return (
     <div className="dashboard-card">
-      <div className="flex items-center justify-between mb-6">
+      <div className="section-header">
         <div>
-          <h3 className="text-lg font-semibold text-foreground">Trade History</h3>
-          <p className="text-sm text-muted-foreground">{trades.length} trades total</p>
+          <h3 className="section-title">Recent Trades</h3>
+          <p className="section-subtitle">{trades.length} total trades</p>
         </div>
-        <Button onClick={exportToCSV} variant="outline" size="sm">
-          <Download className="w-4 h-4 mr-2" />
-          Export CSV
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button onClick={exportToCSV} variant="outline" size="sm" className="rounded-xl">
+            <Filter className="w-4 h-4 mr-2" />
+            Filter
+          </Button>
+          <div className="menu-dots">
+            <MoreHorizontal className="w-5 h-5" />
+          </div>
+        </div>
       </div>
 
       <div className="overflow-x-auto custom-scrollbar">
         <table className="trade-table">
           <thead>
-            <tr className="border-b border-border">
-              <th>Date</th>
+            <tr className="border-b border-border/40">
+              <th>No</th>
+              <th>ID</th>
               <th>Symbol</th>
               <th>Type</th>
-              <th>Entry</th>
-              <th>Exit</th>
-              <th>Qty</th>
-              <th>P&L</th>
-              <th>Fees</th>
+              <th>Entry / Exit</th>
+              <th>Date</th>
               <th>Status</th>
-              <th></th>
+              <th>P&L</th>
             </tr>
           </thead>
           <tbody>
-            {paginatedTrades.map((trade) => (
+            {paginatedTrades.map((trade, index) => (
               <tr key={trade.id} className="animate-fade-in">
+                <td className="text-muted-foreground font-medium">
+                  {startIndex + index + 1}
+                </td>
                 <td className="text-muted-foreground">
-                  {format(trade.date, 'MMM d, yyyy')}
-                  <span className="block text-xs">{format(trade.date, 'HH:mm')}</span>
+                  #{trade.id.split('-')[1]?.padStart(6, '0') || trade.id}
                 </td>
                 <td>
-                  <span className="font-semibold text-foreground">{trade.symbol}</span>
+                  <div className="flex items-center gap-3">
+                    <Avatar className={cn("h-8 w-8", symbolColors[trade.symbol])}>
+                      <AvatarFallback className="text-xs font-semibold bg-transparent">
+                        {trade.symbol.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="font-medium text-foreground">{trade.symbol}</span>
+                  </div>
                 </td>
                 <td>
                   <Badge
                     variant="outline"
                     className={cn(
+                      "rounded-full px-3",
                       trade.type === 'Long' ? 'badge-long' : 'badge-short'
                     )}
                   >
                     {trade.type}
                   </Badge>
                 </td>
-                <td className="tabular-nums">{formatPrice(trade.entryPrice, trade.symbol)}</td>
-                <td className="tabular-nums">
-                  {trade.exitPrice ? formatPrice(trade.exitPrice, trade.symbol) : '-'}
+                <td className="tabular-nums text-muted-foreground">
+                  {formatPrice(trade.entryPrice, trade.symbol)} → {trade.exitPrice ? formatPrice(trade.exitPrice, trade.symbol) : '-'}
                 </td>
-                <td className="tabular-nums">{trade.quantity}</td>
-                <td className={cn("tabular-nums font-semibold", trade.pnl >= 0 ? 'text-profit' : 'text-loss')}>
-                  {formatPnL(trade.pnl)}
+                <td className="text-muted-foreground">
+                  {format(trade.date, 'dd/MM/yyyy')}
+                  <span className="ml-2 text-xs">{format(trade.date, 'HH:mm')}</span>
                 </td>
-                <td className="tabular-nums text-muted-foreground">${trade.fees.toFixed(2)}</td>
                 <td>
-                  <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
-                    {trade.status}
+                  <Badge 
+                    variant="secondary" 
+                    className={cn(
+                      "rounded-full px-3",
+                      trade.pnl >= 0 ? 'badge-paid' : 'bg-destructive/10 text-destructive'
+                    )}
+                  >
+                    {trade.pnl >= 0 ? 'Profit' : 'Loss'}
                   </Badge>
                 </td>
-                <td>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8"
-                        onClick={() => {
-                          setSelectedTrade(trade);
-                          setNoteText(trade.notes);
-                        }}
-                      >
-                        <MessageSquarePlus className="w-4 h-4 text-muted-foreground" />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Add Note to Trade</DialogTitle>
-                      </DialogHeader>
-                      <div className="space-y-4">
-                        <div className="p-4 bg-secondary rounded-lg">
-                          <div className="flex items-center gap-4 text-sm">
-                            <span className="font-semibold">{trade.symbol}</span>
-                            <Badge variant="outline" className={trade.type === 'Long' ? 'badge-long' : 'badge-short'}>
-                              {trade.type}
-                            </Badge>
-                            <span className={trade.pnl >= 0 ? 'text-profit' : 'text-loss'}>
-                              {formatPnL(trade.pnl)}
-                            </span>
-                          </div>
-                        </div>
-                        <Textarea
-                          placeholder="Add your notes, reflections, or lessons learned..."
-                          value={noteText}
-                          onChange={(e) => setNoteText(e.target.value)}
-                          className="min-h-[120px]"
-                        />
-                        <div className="flex justify-end gap-2">
-                          <Button variant="outline" onClick={() => setSelectedTrade(null)}>
-                            Cancel
-                          </Button>
-                          <Button onClick={handleSaveNote}>
-                            Save Note
-                          </Button>
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                <td className={cn("tabular-nums font-semibold", trade.pnl >= 0 ? 'text-success' : 'text-destructive')}>
+                  {trade.pnl >= 0 ? '+' : '-'}{formatPnL(trade.pnl)}
                 </td>
               </tr>
             ))}
@@ -194,7 +171,7 @@ export function TradesTable({ trades, onAddNote }: TradesTableProps) {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between mt-6 pt-4 border-t border-border">
+        <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/40">
           <p className="text-sm text-muted-foreground">
             Showing {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, trades.length)} of {trades.length}
           </p>
@@ -204,17 +181,30 @@ export function TradesTable({ trades, onAddNote }: TradesTableProps) {
               size="sm"
               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
               disabled={currentPage === 1}
+              className="rounded-xl"
             >
               <ChevronLeft className="w-4 h-4" />
             </Button>
-            <span className="text-sm text-muted-foreground px-2">
-              Page {currentPage} of {totalPages}
-            </span>
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              const page = i + 1;
+              return (
+                <Button
+                  key={page}
+                  variant={currentPage === page ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setCurrentPage(page)}
+                  className="rounded-xl w-9"
+                >
+                  {page}
+                </Button>
+              );
+            })}
             <Button
               variant="outline"
               size="sm"
               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
+              className="rounded-xl"
             >
               <ChevronRight className="w-4 h-4" />
             </Button>
