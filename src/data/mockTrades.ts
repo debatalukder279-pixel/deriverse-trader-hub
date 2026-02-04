@@ -1,4 +1,4 @@
-import { Trade, Symbol, TradeType, User, Portfolio } from '@/types/trading';
+import { Trade, Symbol } from '@/types/trading';
 
 // Generate realistic crypto prices
 const generatePrice = (symbol: Symbol, basePrice: number, variance: number): number => {
@@ -23,7 +23,7 @@ const basePrices: Record<Symbol, { base: number; variance: number }> = {
 const generateTrades = (): Trade[] => {
   const trades: Trade[] = [];
   const symbols: Symbol[] = ['SOL', 'BTC', 'ETH'];
-  const types: TradeType[] = ['Long', 'Short'];
+  const types: ('Long' | 'Short')[] = ['Long', 'Short'];
 
   for (let i = 0; i < 58; i++) {
     const symbol = symbols[Math.floor(Math.random() * symbols.length)];
@@ -31,7 +31,7 @@ const generateTrades = (): Trade[] => {
     const { base, variance } = basePrices[symbol];
     
     const entryPrice = generatePrice(symbol, base, variance);
-    const priceChange = (Math.random() - 0.4) * (variance * 0.15); // Slightly biased toward profit
+    const priceChange = (Math.random() - 0.4) * (variance * 0.15);
     const exitPrice = generatePrice(symbol, entryPrice + priceChange, variance * 0.05);
     
     const quantity = symbol === 'BTC' 
@@ -49,10 +49,10 @@ const generateTrades = (): Trade[] => {
     pnl = Number(pnl.toFixed(2));
 
     const volume = entryPrice * quantity;
-    const fees = Number((volume * 0.001).toFixed(2)); // 0.1% fee
+    const fees = Number((volume * 0.001).toFixed(2));
 
     const entryDate = randomDate(90);
-    const tradeDuration = Math.random() * 72 + 0.5; // 0.5 to 72.5 hours
+    const tradeDuration = Math.random() * 72 + 0.5;
     const exitDate = new Date(entryDate.getTime() + tradeDuration * 60 * 60 * 1000);
 
     trades.push({
@@ -71,13 +71,12 @@ const generateTrades = (): Trade[] => {
     });
   }
 
-  // Sort by date descending
   return trades.sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 
 export const mockTrades: Trade[] = generateTrades();
 
-export const mockUser: User = {
+export const mockUser = {
   id: 'user-1',
   email: 'alex@deriverse.io',
   name: 'Alex Thompson',
@@ -85,32 +84,14 @@ export const mockUser: User = {
   avatar: undefined,
 };
 
-export const mockPortfolio: Portfolio = {
+export const mockPortfolio = {
   userId: 'user-1',
   totalValue: 125430.50,
   cashBalance: 25430.50,
   positions: [
-    {
-      symbol: 'SOL',
-      quantity: 150,
-      avgEntryPrice: 142.50,
-      currentPrice: 155.80,
-      unrealizedPnl: 1995.00,
-    },
-    {
-      symbol: 'BTC',
-      quantity: 0.85,
-      avgEntryPrice: 62500,
-      currentPrice: 67200,
-      unrealizedPnl: 3995.00,
-    },
-    {
-      symbol: 'ETH',
-      quantity: 12.5,
-      avgEntryPrice: 3200,
-      currentPrice: 3450,
-      unrealizedPnl: 3125.00,
-    },
+    { symbol: 'SOL' as Symbol, quantity: 150, avgEntryPrice: 142.50, currentPrice: 155.80, unrealizedPnl: 1995.00 },
+    { symbol: 'BTC' as Symbol, quantity: 0.85, avgEntryPrice: 62500, currentPrice: 67200, unrealizedPnl: 3995.00 },
+    { symbol: 'ETH' as Symbol, quantity: 12.5, avgEntryPrice: 3200, currentPrice: 3450, unrealizedPnl: 3125.00 },
   ],
 };
 
@@ -209,6 +190,81 @@ export const getDrawdownData = (trades: Trade[]) => {
   });
 };
 
+// Get monthly breakdown data
+export const getMonthlyBreakdown = (trades: Trade[]) => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const now = new Date();
+  const last6Months: Array<{ month: string; pnl: number; trades: number }> = [];
+
+  for (let i = 5; i >= 0; i--) {
+    const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const monthName = months[date.getMonth()];
+    
+    const monthTrades = trades.filter(t => {
+      const tradeDate = new Date(t.date);
+      return tradeDate.getMonth() === date.getMonth() && 
+             tradeDate.getFullYear() === date.getFullYear();
+    });
+
+    const pnl = monthTrades.reduce((sum, t) => sum + t.pnl, 0);
+
+    last6Months.push({
+      month: monthName,
+      pnl: Number(pnl.toFixed(2)),
+      trades: monthTrades.length,
+    });
+  }
+
+  return last6Months;
+};
+
+// Get daily heatmap data
+export const getDailyHeatmapData = (trades: Trade[]) => {
+  const dailyData: Array<{ date: Date; pnl: number; trades: number }> = [];
+  const now = new Date();
+  
+  // Generate data for the last 90 days
+  for (let i = 89; i >= 0; i--) {
+    const date = new Date(now);
+    date.setDate(date.getDate() - i);
+    date.setHours(0, 0, 0, 0);
+    
+    const dayTrades = trades.filter(t => {
+      const tradeDate = new Date(t.date);
+      tradeDate.setHours(0, 0, 0, 0);
+      return tradeDate.getTime() === date.getTime();
+    });
+
+    const pnl = dayTrades.reduce((sum, t) => sum + t.pnl, 0);
+    
+    dailyData.push({
+      date: new Date(date),
+      pnl: Number(pnl.toFixed(2)),
+      trades: dayTrades.length,
+    });
+  }
+
+  return dailyData;
+};
+
+// Get symbol distribution data
+export const getSymbolDistribution = (trades: Trade[]) => {
+  const symbols: Symbol[] = ['SOL', 'BTC', 'ETH'];
+  
+  return symbols.map(symbol => {
+    const symbolTrades = trades.filter(t => t.symbol === symbol);
+    const winningTrades = symbolTrades.filter(t => t.pnl > 0).length;
+    const totalPnl = symbolTrades.reduce((sum, t) => sum + t.pnl, 0);
+    
+    return {
+      symbol,
+      trades: symbolTrades.length,
+      pnl: Number(totalPnl.toFixed(2)),
+      winRate: symbolTrades.length > 0 ? (winningTrades / symbolTrades.length) * 100 : 0,
+    };
+  });
+};
+
 // Filter trades based on filter state
 export const filterTrades = (trades: Trade[], filters: {
   symbol: string;
@@ -219,12 +275,10 @@ export const filterTrades = (trades: Trade[], filters: {
 }): Trade[] => {
   let filtered = [...trades];
 
-  // Filter by symbol
   if (filters.symbol !== 'ALL') {
     filtered = filtered.filter(t => t.symbol === filters.symbol);
   }
 
-  // Filter by date range
   const now = new Date();
   let startDate: Date;
   
@@ -255,7 +309,6 @@ export const filterTrades = (trades: Trade[], filters: {
     filtered = filtered.filter(t => t.date <= filters.customEndDate!);
   }
 
-  // Filter by trade type
   if (filters.tradeType !== 'All') {
     filtered = filtered.filter(t => t.type === filters.tradeType);
   }
