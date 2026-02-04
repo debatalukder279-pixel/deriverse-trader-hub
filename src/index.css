@@ -149,50 +149,53 @@
 }
 
 @layer components {
-  /* Card Styles - Clean with smooth hover */
+  /* Card Styles - Clean with subtle hover */
   .dashboard-card {
-    @apply bg-card p-6;
-    border-radius: 20px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    @apply bg-card p-5;
+    border-radius: 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: box-shadow 0.2s ease;
   }
 
   .dashboard-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   }
 
-  /* Widget Card */
+  /* Widget Card - Smaller secondary cards */
   .widget-card {
-    @apply bg-card p-5;
-    border-radius: 16px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    @apply bg-card p-4;
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    transition: box-shadow 0.2s ease;
   }
 
   .widget-card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
   }
 
-  /* Metric Card */
+  /* Metric Card - Compact for KPI row */
   .metric-card {
-    @apply dashboard-card;
+    @apply bg-card p-4;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .metric-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   }
 
   .metric-icon-box {
-    @apply w-10 h-10 rounded-xl flex items-center justify-center;
-    transition: transform 0.2s ease;
+    @apply w-9 h-9 rounded-lg flex items-center justify-center;
+    transition: transform 0.15s ease;
   }
 
-  .dashboard-card:hover .metric-icon-box {
-    transform: scale(1.05);
+  .metric-card:hover .metric-icon-box {
+    transform: scale(1.03);
   }
 
   .metric-icon-box-blue {
-    @apply bg-muted text-foreground/70;
+    @apply bg-muted/80 text-foreground/60;
   }
 
   .metric-icon-box-green {
@@ -213,7 +216,7 @@
 
   /* Chart Container */
   .chart-container {
-    @apply dashboard-card;
+    @apply dashboard-card p-5;
   }
 
   /* Sidebar Active State */

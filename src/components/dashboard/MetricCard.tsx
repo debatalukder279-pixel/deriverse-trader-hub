@@ -32,35 +32,35 @@ export function MetricCard({
 
   return (
     <div className="metric-card">
-      <div className="flex items-start justify-between">
-        <div className="flex-1 space-y-1">
-          <p className="text-sm font-medium text-muted-foreground">{title}</p>
-          <p className="text-3xl font-semibold text-foreground tracking-tight tabular-nums">
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-medium text-muted-foreground truncate">{title}</p>
+          <p className="text-xl font-bold text-foreground tracking-tight tabular-nums mt-1">
             {value}
           </p>
           {change && (
-            <div className="flex items-center gap-1.5 pt-2">
+            <div className="flex items-center gap-1 mt-1.5">
               <span
                 className={cn(
-                  "inline-flex items-center gap-0.5 text-xs font-medium",
+                  "inline-flex items-center gap-0.5 text-[10px] font-medium",
                   change.isPositive ? "text-success" : "text-destructive"
                 )}
               >
                 {change.isPositive ? (
-                  <ArrowUp className="w-3 h-3" />
+                  <ArrowUp className="w-2.5 h-2.5" />
                 ) : (
-                  <ArrowDown className="w-3 h-3" />
+                  <ArrowDown className="w-2.5 h-2.5" />
                 )}
-                {Math.abs(change.value)}%
+                {Math.abs(change.value).toFixed(2)}%
               </span>
-              <span className="text-xs text-muted-foreground/70">
+              <span className="text-[10px] text-muted-foreground/60 truncate">
                 {change.label || 'vs last week'}
               </span>
             </div>
           )}
         </div>
-        <div className={cn("metric-icon-box", iconColorClass)}>
-          <Icon className="w-5 h-5" />
+        <div className={cn("metric-icon-box flex-shrink-0", iconColorClass)}>
+          <Icon className="w-4 h-4" />
         </div>
       </div>
     </div>

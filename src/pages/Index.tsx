@@ -179,7 +179,7 @@ const Index = () => {
 
   return (
     <DashboardLayout title="Trading Dashboard" subtitle="Track your trading performance and analytics" greeting>
-      <div className={`space-y-8 ${isLoading ? 'opacity-60 pointer-events-none' : ''}`}>
+      <div className={`space-y-6 ${isLoading ? 'opacity-60 pointer-events-none' : ''}`}>
         
         {/* Filter Controls */}
         <FilterControls
@@ -199,8 +199,8 @@ const Index = () => {
           onReset={handleResetFilters}
         />
 
-        {/* KPI Metrics Row - 8 cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+        {/* Primary KPI Metrics - 8 cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8 gap-4">
           <MetricCard
             title="Total P&L"
             value={formatCurrency(metrics.totalPnl)}
@@ -253,58 +253,58 @@ const Index = () => {
           />
         </div>
 
-        {/* Additional Metrics Row */}
+        {/* Secondary Metrics Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="dashboard-card p-4">
+          <div className="widget-card">
             <p className="text-xs text-muted-foreground mb-1">Avg Win</p>
-            <p className="text-xl font-bold text-success">{formatCurrency(metrics.avgWin)}</p>
+            <p className="text-xl font-bold text-success tabular-nums">{formatCurrency(metrics.avgWin)}</p>
           </div>
-          <div className="dashboard-card p-4">
+          <div className="widget-card">
             <p className="text-xs text-muted-foreground mb-1">Avg Loss</p>
-            <p className="text-xl font-bold text-destructive">{formatCurrency(Math.abs(metrics.avgLoss))}</p>
+            <p className="text-xl font-bold text-destructive tabular-nums">{formatCurrency(Math.abs(metrics.avgLoss))}</p>
           </div>
-          <div className="dashboard-card p-4">
+          <div className="widget-card">
             <p className="text-xs text-muted-foreground mb-1">P&L Percentage</p>
-            <p className={`text-xl font-bold ${metrics.totalPnlPercent >= 0 ? 'text-success' : 'text-destructive'}`}>
+            <p className={`text-xl font-bold tabular-nums ${metrics.totalPnlPercent >= 0 ? 'text-success' : 'text-destructive'}`}>
               {metrics.totalPnlPercent >= 0 ? '+' : ''}{metrics.totalPnlPercent.toFixed(2)}%
             </p>
           </div>
-          <div className="dashboard-card p-4 flex items-center justify-between">
+          <div className="widget-card flex items-center justify-between">
             <div>
               <p className="text-xs text-muted-foreground mb-1">Export Data</p>
-              <p className="text-sm font-medium">{filteredTrades.length} trades</p>
+              <p className="text-sm font-medium text-foreground">{filteredTrades.length} trades</p>
             </div>
-            <Button onClick={exportToCSV} size="sm" variant="outline" className="rounded-xl">
-              <Download className="w-4 h-4 mr-1" />
+            <Button onClick={exportToCSV} size="sm" variant="outline" className="rounded-xl h-9 px-4">
+              <Download className="w-4 h-4 mr-1.5" />
               CSV
             </Button>
           </div>
         </div>
 
-        {/* Risk Management Section */}
+        {/* Risk Management */}
         <RiskManagementCard metrics={riskMetrics} />
 
-        {/* Charts Row 1 - Overview */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Overview Charts - 3 column grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           <LongShortPieChart data={longShortRatio} />
           <PnLLineChart data={cumulativePnLData} />
           <OverallProgressCard winRate={metrics.winRate} />
         </div>
 
-        {/* Charts Row 2 - P&L Analysis */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* P&L Analysis - 2 column grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <DailyPnLChart data={dailyPnLData} />
           <DrawdownChart data={drawdownData} />
         </div>
 
-        {/* Charts Row 3 - Distribution */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Distribution & Symbol Analysis */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <PnLDistributionChart data={pnlDistribution} />
           <WinRateBySymbolChart data={winRateBySymbol} />
         </div>
 
-        {/* Charts Row 4 - Monthly & Symbol */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Monthly & Symbol Breakdown */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <MonthlyBreakdownChart data={monthlyBreakdown} />
           <SymbolDistributionChart data={symbolDistribution} />
         </div>
@@ -312,14 +312,14 @@ const Index = () => {
         {/* Time Analysis */}
         <TradingTimeAnalysis data={timeAnalysisData} />
 
-        {/* Charts Row 5 - Session & Order Type */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Session & Order Type Performance */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <SessionPerformanceChart data={sessionPerformance} />
           <OrderTypePerformanceChart data={orderTypePerformance} />
         </div>
 
-        {/* Charts Row 6 - Fee Analysis */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Fee Analysis */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <FeesBySymbolChart data={feeAnalysis.feesBySymbol} />
           <CumulativeFeesChart data={feeAnalysis.cumulativeFeeData} />
         </div>

@@ -75,18 +75,18 @@ export function TradingTimeAnalysis({ data }: TradingTimeAnalysisProps) {
   };
 
   return (
-    <div className="chart-container">
-      <div className="section-header">
+    <div className="dashboard-card">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="section-title">Trading Time Analysis</h3>
-          <p className="section-subtitle">Performance by time of day and day of week</p>
+          <h3 className="text-sm font-semibold text-foreground">Trading Time Analysis</h3>
+          <p className="text-xs text-muted-foreground">Performance by time of day and day of week</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex bg-muted rounded-lg p-1">
+          <div className="flex bg-muted/60 rounded-lg p-0.5">
             <button
               onClick={() => setView('daily')}
               className={cn(
-                "px-3 py-1.5 text-sm font-medium rounded-md transition-all",
+                "px-2.5 py-1 text-xs font-medium rounded-md transition-all",
                 view === 'daily' 
                   ? "bg-card text-foreground shadow-sm" 
                   : "text-muted-foreground hover:text-foreground"
@@ -97,7 +97,7 @@ export function TradingTimeAnalysis({ data }: TradingTimeAnalysisProps) {
             <button
               onClick={() => setView('hourly')}
               className={cn(
-                "px-3 py-1.5 text-sm font-medium rounded-md transition-all",
+                "px-2.5 py-1 text-xs font-medium rounded-md transition-all",
                 view === 'hourly' 
                   ? "bg-card text-foreground shadow-sm" 
                   : "text-muted-foreground hover:text-foreground"
@@ -106,31 +106,31 @@ export function TradingTimeAnalysis({ data }: TradingTimeAnalysisProps) {
               Hourly
             </button>
           </div>
-          <div className="menu-dots">
-            <MoreHorizontal className="w-5 h-5" />
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted cursor-pointer">
+            <MoreHorizontal className="w-4 h-4" />
           </div>
         </div>
       </div>
 
-      <div className="mt-4 h-[200px]">
+      <div className="h-[180px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={chartData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+            <CartesianGrid strokeDasharray="0" stroke="hsl(var(--border))" vertical={false} opacity={0.5} />
             <XAxis 
               dataKey={view === 'hourly' ? 'name' : 'day'} 
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
-              axisLine={{ stroke: 'hsl(var(--border))' }}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
+              axisLine={false}
               tickLine={false}
               interval={view === 'hourly' ? 3 : 0}
             />
             <YAxis 
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
               axisLine={false}
               tickLine={false}
               tickFormatter={(value) => `$${value}`}
             />
             <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="pnl" radius={[4, 4, 0, 0]} maxBarSize={view === 'hourly' ? 20 : 40}>
+            <Bar dataKey="pnl" radius={[3, 3, 0, 0]} maxBarSize={view === 'hourly' ? 16 : 32}>
               {chartData.map((entry, index) => (
                 <Cell 
                   key={`cell-${index}`} 
@@ -143,28 +143,28 @@ export function TradingTimeAnalysis({ data }: TradingTimeAnalysisProps) {
       </div>
 
       {/* Best/Worst Period Summary */}
-      <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-border">
+      <div className="grid grid-cols-2 gap-4 mt-3 pt-3 border-t border-border/40">
         <div className="text-center">
-          <p className="text-xs text-muted-foreground mb-1">Best {view === 'hourly' ? 'Hour' : 'Day'}</p>
-          <p className="font-semibold text-foreground">
+          <p className="text-[10px] text-muted-foreground mb-0.5">Best {view === 'hourly' ? 'Hour' : 'Day'}</p>
+          <p className="text-sm font-semibold text-foreground">
             {view === 'hourly' 
               ? bestPeriod ? `${(bestPeriod as any).hour?.toString().padStart(2, '0')}:00` : '-'
               : (bestPeriod as any)?.day || '-'
             }
           </p>
-          <p className="text-sm text-success font-medium">
+          <p className="text-xs text-success font-medium">
             {bestPeriod ? formatCurrency(bestPeriod.pnl) : '-'}
           </p>
         </div>
         <div className="text-center">
-          <p className="text-xs text-muted-foreground mb-1">Worst {view === 'hourly' ? 'Hour' : 'Day'}</p>
-          <p className="font-semibold text-foreground">
+          <p className="text-[10px] text-muted-foreground mb-0.5">Worst {view === 'hourly' ? 'Hour' : 'Day'}</p>
+          <p className="text-sm font-semibold text-foreground">
             {view === 'hourly' 
               ? worstPeriod ? `${(worstPeriod as any).hour?.toString().padStart(2, '0')}:00` : '-'
               : (worstPeriod as any)?.day || '-'
             }
           </p>
-          <p className="text-sm text-destructive font-medium">
+          <p className="text-xs text-destructive font-medium">
             {worstPeriod ? formatCurrency(worstPeriod.pnl) : '-'}
           </p>
         </div>

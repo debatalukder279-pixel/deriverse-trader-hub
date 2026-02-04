@@ -43,13 +43,12 @@ export function PnLLineChart({ data }: PnLLineChartProps) {
 
   const CustomDot = (props: any) => {
     const { cx, cy, payload, index } = props;
-    // Show dot only for specific highlighted point (e.g., highest value)
     const maxValue = Math.max(...data.map(d => d.pnl));
     if (payload.pnl === maxValue) {
       return (
         <g>
-          <circle cx={cx} cy={cy} r={6} fill="hsl(var(--primary))" />
-          <circle cx={cx} cy={cy} r={3} fill="white" />
+          <circle cx={cx} cy={cy} r={5} fill="hsl(var(--primary))" />
+          <circle cx={cx} cy={cy} r={2.5} fill="white" />
         </g>
       );
     }
@@ -57,34 +56,34 @@ export function PnLLineChart({ data }: PnLLineChartProps) {
   };
 
   return (
-    <div className="chart-container">
-      <div className="section-header">
+    <div className="dashboard-card">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="section-title">Sales Analytics</h3>
-          <p className="section-subtitle">Cumulative P&L over time</p>
+          <h3 className="text-sm font-semibold text-foreground">Sales Analytics</h3>
+          <p className="text-xs text-muted-foreground">Cumulative P&L over time</p>
         </div>
-        <div className="menu-dots">
-          <MoreHorizontal className="w-5 h-5" />
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted cursor-pointer">
+          <MoreHorizontal className="w-4 h-4" />
         </div>
       </div>
-      <div className="h-[280px]">
+      <div className="h-[220px]">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
+          <LineChart data={data} margin={{ top: 15, right: 15, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="0" stroke="hsl(var(--border))" vertical={false} />
             <XAxis
               dataKey="date"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
-              dy={10}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
+              dy={8}
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
               tickFormatter={formatYAxis}
-              dx={-10}
-              width={40}
+              dx={-8}
+              width={35}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'hsl(var(--border))', strokeDasharray: '4 4' }} />
             <Line
@@ -93,7 +92,7 @@ export function PnLLineChart({ data }: PnLLineChartProps) {
               stroke="hsl(var(--primary))"
               strokeWidth={2}
               dot={<CustomDot />}
-              activeDot={{ r: 6, fill: 'hsl(var(--primary))', strokeWidth: 0 }}
+              activeDot={{ r: 5, fill: 'hsl(var(--primary))', strokeWidth: 0 }}
             />
           </LineChart>
         </ResponsiveContainer>
