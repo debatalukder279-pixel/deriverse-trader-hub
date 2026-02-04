@@ -35,30 +35,28 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 h-screen bg-sidebar border-r border-sidebar-border transition-all duration-300 flex flex-col",
-        collapsed ? "w-[72px]" : "w-[260px]"
+        "fixed left-0 top-0 z-40 h-screen bg-sidebar transition-all duration-300 ease-out flex flex-col",
+        collapsed ? "w-[72px]" : "w-[240px]"
       )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-6">
-        <div className={cn("flex items-center gap-3", collapsed && "justify-center w-full")}>
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-primary-foreground" />
-          </div>
-          {!collapsed && (
-            <div>
-              <span className="font-bold text-primary text-lg tracking-tight">Deriverse</span>
-              <p className="text-[11px] text-sidebar-muted">Trading Dashboard</p>
-            </div>
-          )}
+      <div className="flex items-center gap-3 px-5 py-6">
+        <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center transition-transform duration-200 hover:scale-105">
+          <TrendingUp className="w-5 h-5 text-white" />
         </div>
+        {!collapsed && (
+          <div className="animate-fade-in">
+            <span className="font-semibold text-white text-base tracking-tight">Deriverse</span>
+            <p className="text-[11px] text-sidebar-foreground">Trading Dashboard</p>
+          </div>
+        )}
       </div>
 
       {/* Collapse Toggle */}
       {!collapsed && (
         <button
           onClick={onToggle}
-          className="flex items-center gap-2 px-5 py-2 text-sidebar-foreground hover:text-primary transition-colors text-sm"
+          className="flex items-center gap-2 mx-5 mb-4 text-sidebar-foreground hover:text-white transition-colors duration-200 text-sm"
         >
           <ChevronLeft className="w-4 h-4" />
           <span>Minimize</span>
@@ -66,33 +64,34 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       )}
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar">
+      <nav className="flex-1 px-3 space-y-1 overflow-y-auto custom-scrollbar">
         {!collapsed && (
-          <p className="text-[11px] font-semibold text-sidebar-muted uppercase tracking-wider px-4 mb-3">
+          <p className="text-[10px] font-semibold text-sidebar-muted uppercase tracking-wider px-3 mb-3">
             Main Menu
           </p>
         )}
         
-        {menuItems.map((item) => {
+        {menuItems.map((item, index) => {
           const isActive = location.pathname === item.path;
           return (
             <Link
               key={item.path}
               to={item.path}
+              style={{ animationDelay: `${index * 50}ms` }}
               className={cn(
-                "sidebar-item",
+                "sidebar-item animate-fade-in",
                 isActive && "sidebar-item-active",
                 collapsed && "justify-center px-3"
               )}
             >
-              <item.icon className={cn("w-5 h-5 flex-shrink-0")} />
-              {!collapsed && <span>{item.label}</span>}
+              <item.icon className="w-5 h-5 flex-shrink-0" />
+              {!collapsed && <span className="font-medium">{item.label}</span>}
             </Link>
           );
         })}
 
         {!collapsed && (
-          <p className="text-[11px] font-semibold text-sidebar-muted uppercase tracking-wider px-4 mb-3 mt-8">
+          <p className="text-[10px] font-semibold text-sidebar-muted uppercase tracking-wider px-3 mb-3 mt-8">
             Help & Support
           </p>
         )}
@@ -109,8 +108,8 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                 collapsed && "justify-center px-3"
               )}
             >
-              <item.icon className={cn("w-5 h-5 flex-shrink-0")} />
-              {!collapsed && <span>{item.label}</span>}
+              <item.icon className="w-5 h-5 flex-shrink-0" />
+              {!collapsed && <span className="font-medium">{item.label}</span>}
             </Link>
           );
         })}
@@ -118,11 +117,11 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
       {/* Upgrade Card */}
       {!collapsed && (
-        <div className="px-3 pb-3">
-          <div className="upgrade-card">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-white" />
+        <div className="px-3 pb-4">
+          <div className="upgrade-card animate-fade-in">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+                <TrendingUp className="w-4 h-4 text-white" />
               </div>
               <div>
                 <p className="font-semibold text-white text-sm">Upgrade Pro</p>
@@ -131,7 +130,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             </div>
             <Button
               size="sm"
-              className="w-full bg-white text-primary hover:bg-white/90 font-semibold rounded-xl"
+              className="w-full bg-white text-sidebar-background hover:bg-white/90 font-semibold rounded-xl transition-all duration-200 hover:scale-[1.02]"
             >
               Upgrade $30
             </Button>
@@ -140,18 +139,15 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       )}
 
       {/* Logout */}
-      <div className={cn(
-        "px-3 pb-6",
-        collapsed && "flex justify-center"
-      )}>
+      <div className={cn("px-3 pb-6", collapsed && "flex justify-center")}>
         <button
           className={cn(
-            "sidebar-item w-full text-sidebar-foreground hover:text-primary",
+            "sidebar-item w-full text-sidebar-foreground hover:text-white",
             collapsed && "justify-center px-3"
           )}
         >
           <LogOut className="w-5 h-5" />
-          {!collapsed && <span>Log Out</span>}
+          {!collapsed && <span className="font-medium">Log Out</span>}
         </button>
       </div>
     </aside>

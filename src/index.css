@@ -7,76 +7,76 @@
 @layer base {
   :root {
     /* Background - Clean light gray */
-    --background: 220 20% 97%;
-    --foreground: 220 20% 10%;
+    --background: 210 20% 97%;
+    --foreground: 210 25% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
-    --card-secondary: 220 15% 97%;
+    --card-foreground: 210 25% 10%;
+    --card-secondary: 210 20% 97%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
+    --popover-foreground: 210 25% 10%;
 
-    /* Primary - Dark/Black */
-    --primary: 220 20% 15%;
+    /* Primary - Teal Brand */
+    --primary: 174 50% 28%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 220 20% 25%;
-    --primary-soft: 220 15% 95%;
+    --primary-hover: 174 50% 35%;
+    --primary-soft: 174 30% 95%;
 
-    /* Secondary - Light Gray */
-    --secondary: 220 15% 95%;
-    --secondary-foreground: 220 20% 20%;
-    --secondary-soft: 220 15% 97%;
+    /* Secondary */
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 210 25% 20%;
+    --secondary-soft: 210 20% 98%;
 
     /* Muted */
-    --muted: 220 15% 95%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 15% 50%;
 
-    /* Accent - Teal/Cyan */
-    --accent: 180 60% 45%;
+    /* Accent - Teal */
+    --accent: 174 50% 35%;
     --accent-foreground: 0 0% 100%;
 
     /* Success - Green */
-    --success: 156 65% 45%;
+    --success: 156 72% 40%;
     --success-foreground: 0 0% 100%;
-    --success-soft: 156 40% 95%;
+    --success-soft: 156 50% 95%;
 
     /* Destructive - Red */
-    --destructive: 0 70% 55%;
+    --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
-    --destructive-soft: 0 50% 95%;
+    --destructive-soft: 0 60% 95%;
 
     /* Warning - Orange */
-    --warning: 35 90% 55%;
-    --warning-hover: 35 90% 50%;
+    --warning: 35 95% 55%;
+    --warning-hover: 35 95% 50%;
     --warning-foreground: 0 0% 100%;
 
-    /* Borders - Very subtle */
-    --border: 220 15% 92%;
-    --input: 220 15% 92%;
-    --ring: 220 20% 15%;
+    /* Borders */
+    --border: 210 20% 92%;
+    --input: 210 20% 92%;
+    --ring: 174 50% 35%;
 
-    --radius: 1.375rem;
-    --radius-widget: 1.125rem;
+    --radius: 1rem;
+    --radius-widget: 0.875rem;
 
-    /* Sidebar - Clean white */
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 10% 50%;
-    --sidebar-primary: 220 20% 15%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 15% 96%;
-    --sidebar-accent-foreground: 220 20% 15%;
-    --sidebar-border: 220 15% 94%;
-    --sidebar-ring: 220 20% 15%;
-    --sidebar-muted: 220 10% 60%;
+    /* Sidebar - Dark Teal */
+    --sidebar-background: 174 45% 22%;
+    --sidebar-foreground: 174 20% 75%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 174 45% 22%;
+    --sidebar-accent: 174 40% 28%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 174 40% 28%;
+    --sidebar-ring: 0 0% 100%;
+    --sidebar-muted: 174 20% 60%;
 
     /* Chart Colors */
-    --chart-1: 220 20% 20%;
-    --chart-2: 220 15% 50%;
-    --chart-3: 156 65% 45%;
-    --chart-4: 0 70% 55%;
-    --chart-5: 180 60% 45%;
-    --chart-6: 220 15% 70%;
+    --chart-1: 210 25% 20%;
+    --chart-2: 174 50% 35%;
+    --chart-3: 156 72% 40%;
+    --chart-4: 0 72% 55%;
+    --chart-5: 210 60% 50%;
+    --chart-6: 35 95% 55%;
   }
 
   .dark {
@@ -141,21 +141,40 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @layer components {
-  /* Card Styles - Clean, minimal */
+  /* Card Styles - Clean with smooth hover */
   .dashboard-card {
     @apply bg-card p-6;
-    border-radius: 24px;
+    border-radius: 20px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   }
 
   /* Widget Card */
   .widget-card {
     @apply bg-card p-5;
-    border-radius: 20px;
+    border-radius: 16px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .widget-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
   }
 
   /* Metric Card */
@@ -164,11 +183,16 @@
   }
 
   .metric-icon-box {
-    @apply w-11 h-11 rounded-xl flex items-center justify-center bg-muted/60;
+    @apply w-10 h-10 rounded-xl flex items-center justify-center;
+    transition: transform 0.2s ease;
+  }
+
+  .dashboard-card:hover .metric-icon-box {
+    transform: scale(1.05);
   }
 
   .metric-icon-box-blue {
-    @apply bg-muted/60 text-foreground/70;
+    @apply bg-muted text-foreground/70;
   }
 
   .metric-icon-box-green {
@@ -176,11 +200,11 @@
   }
 
   .metric-icon-box-purple {
-    @apply bg-muted/60 text-foreground/70;
+    @apply bg-primary/10 text-primary;
   }
 
   .metric-icon-box-orange {
-    @apply bg-muted/60 text-foreground/70;
+    @apply bg-warning/10 text-warning;
   }
 
   .metric-icon-box-red {
@@ -194,7 +218,8 @@
 
   /* Sidebar Active State */
   .sidebar-item {
-    @apply flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-sidebar-foreground;
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-sidebar-foreground;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .sidebar-item:hover {
@@ -268,24 +293,38 @@
 
   /* Button Variants */
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all;
+    @apply inline-flex items-center justify-center rounded-xl text-sm font-medium;
     @apply bg-primary text-primary-foreground px-5 py-2.5;
-    @apply hover:bg-primary-hover;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-primary:hover {
+    @apply bg-primary-hover;
+    transform: translateY(-1px);
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all;
+    @apply inline-flex items-center justify-center rounded-xl text-sm font-medium;
     @apply border border-border bg-transparent text-foreground px-5 py-2.5;
-    @apply hover:bg-muted;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Upgrade Card - Dark elegant */
+  .btn-outline:hover {
+    @apply bg-muted;
+  }
+
+  /* Upgrade Card */
   .upgrade-card {
-    @apply p-5 bg-primary text-primary-foreground;
-    border-radius: 20px;
+    @apply p-5 bg-sidebar-accent text-white;
+    border-radius: 16px;
+    transition: transform 0.2s ease;
   }
 
-  /* Progress Ring Gradient */
+  .upgrade-card:hover {
+    transform: scale(1.02);
+  }
+
+  /* Progress Ring */
   .progress-gradient {
     background: linear-gradient(180deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 100%);
   }
@@ -297,8 +336,8 @@
 
   /* Scrollbar Styles */
   .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
@@ -306,11 +345,11 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-full;
+    @apply bg-white/20 rounded-full;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-muted-foreground/30;
+    @apply bg-white/30;
   }
 
   /* Section Header */
@@ -328,20 +367,25 @@
 
   /* Menu Dots */
   .menu-dots {
-    @apply w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors cursor-pointer;
+    @apply w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground;
+    transition: all 0.2s ease;
+  }
+
+  .menu-dots:hover {
+    @apply bg-muted;
   }
 }
 
 @layer utilities {
   /* Animation Utilities */
   .animate-fade-in {
-    animation: fadeIn 0.4s ease-out;
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(10px);
     }
     to {
       opacity: 1;
@@ -350,18 +394,44 @@
   }
 
   .animate-slide-in {
-    animation: slideIn 0.3s ease-out;
+    animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   @keyframes slideIn {
     from {
       opacity: 0;
-      transform: translateX(-8px);
+      transform: translateX(-10px);
     }
     to {
       opacity: 1;
       transform: translateX(0);
     }
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Smooth hover transition */
+  .hover-lift {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
 
   /* Number Styles */
@@ -370,8 +440,10 @@
   }
 
   /* Stagger animation delays */
-  .delay-75 { animation-delay: 75ms; }
+  .delay-50 { animation-delay: 50ms; }
+  .delay-100 { animation-delay: 100ms; }
   .delay-150 { animation-delay: 150ms; }
-  .delay-225 { animation-delay: 225ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-250 { animation-delay: 250ms; }
   .delay-300 { animation-delay: 300ms; }
 }
