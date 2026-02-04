@@ -1,6 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
-import { MetricCard } from "@/components/dashboard/MetricCard";
+import { HeroBalanceCard } from "@/components/dashboard/HeroBalanceCard";
+import { QuickStatCard } from "@/components/dashboard/QuickStatCard";
+import { RecentTradesCard } from "@/components/dashboard/RecentTradesCard";
 import { PnLLineChart } from "@/components/dashboard/PnLLineChart";
 import { LongShortPieChart } from "@/components/dashboard/LongShortPieChart";
 import { TradesTable } from "@/components/dashboard/TradesTable";
@@ -40,19 +42,16 @@ import {
 } from "@/data/mockTrades";
 import { Trade } from "@/types/trading";
 import {
-  Users,
-  DollarSign,
-  TrendingUp,
-  TrendingDown,
-  FileText,
+  Wallet,
+  ArrowUpRight,
+  ArrowDownRight,
   Clock,
-  Percent,
-  ArrowUp,
-  ArrowDown,
+  Receipt,
+  Target,
+  Download,
 } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
 
 const Index = () => {
   const [trades, setTrades] = useState<Trade[]>(mockTrades);
@@ -130,7 +129,6 @@ const Index = () => {
         trade.id === tradeId ? { ...trade, notes: note } : trade
       )
     );
-    // Save to localStorage
     const savedNotes = JSON.parse(localStorage.getItem('deriverse-trade-notes') || '{}');
     savedNotes[tradeId] = note;
     localStorage.setItem('deriverse-trade-notes', JSON.stringify(savedNotes));
@@ -178,9 +176,53 @@ const Index = () => {
   };
 
   return (
-    <DashboardLayout title="Trading Dashboard" subtitle="Track your trading performance and analytics" greeting>
-      <div className={`space-y-6 ${isLoading ? 'opacity-60 pointer-events-none' : ''}`}>
+    <DashboardLayout title="Trading Dashboard" subtitle="Track your trading performance" greeting>
+      <div className={`space-y-8 ${isLoading ? 'opacity-60 pointer-events-none' : ''}`}>
         
+        {/* Top Section - Hero + Recent Trades */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Hero Balance + Quick Stats */}
+          <div className="lg:col-span-2 space-y-6">
+            <HeroBalanceCard 
+              totalPnl={metrics.totalPnl}
+              pnlPercent={metrics.totalPnlPercent}
+              winRate={metrics.winRate}
+            />
+            
+            {/* Quick Stats Row */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <QuickStatCard
+                icon={Wallet}
+                value={formatCurrency(metrics.totalVolume)}
+                label="Total Volume"
+              />
+              <QuickStatCard
+                icon={Receipt}
+                value={formatCurrency(metrics.totalFees)}
+                label="Total Fees"
+                variant="warning"
+              />
+              <QuickStatCard
+                icon={ArrowUpRight}
+                value={formatCurrency(metrics.largestGain)}
+                label="Largest Win"
+                variant="success"
+              />
+              <QuickStatCard
+                icon={ArrowDownRight}
+                value={formatCurrency(Math.abs(metrics.largestLoss))}
+                label="Largest Loss"
+                variant="destructive"
+              />
+            </div>
+          </div>
+
+          {/* Right Column - Recent Trades */}
+          <div className="lg:col-span-1">
+            <RecentTradesCard trades={filteredTrades} />
+          </div>
+        </div>
+
         {/* Filter Controls */}
         <FilterControls
           symbol={filters.symbol}
@@ -199,83 +241,35 @@ const Index = () => {
           onReset={handleResetFilters}
         />
 
-        {/* Primary KPI Metrics - 8 cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8 gap-4">
-          <MetricCard
-            title="Total P&L"
-            value={formatCurrency(metrics.totalPnl)}
-            icon={DollarSign}
-            iconColor={metrics.totalPnl >= 0 ? "green" : "red"}
-            change={{ value: Math.abs(metrics.totalPnlPercent), isPositive: metrics.totalPnl >= 0 }}
-          />
-          <MetricCard
-            title="Total Volume"
-            value={formatCurrency(metrics.totalVolume)}
-            icon={FileText}
-            iconColor="blue"
-          />
-          <MetricCard
-            title="Total Fees"
-            value={formatCurrency(metrics.totalFees)}
-            icon={TrendingDown}
-            iconColor="orange"
-          />
-          <MetricCard
-            title="Win Rate"
-            value={`${metrics.winRate}%`}
-            icon={Percent}
-            iconColor="purple"
-            change={{ value: 0, isPositive: metrics.winRate >= 50 }}
-          />
-          <MetricCard
-            title="Total Trades"
-            value={metrics.totalTrades.toLocaleString()}
-            icon={Users}
-            iconColor="blue"
-          />
-          <MetricCard
-            title="Avg Duration"
-            value={`${metrics.avgTradeDuration.toFixed(1)}h`}
-            icon={Clock}
-            iconColor="purple"
-          />
-          <MetricCard
-            title="Largest Gain"
-            value={formatCurrency(metrics.largestGain)}
-            icon={ArrowUp}
-            iconColor="green"
-          />
-          <MetricCard
-            title="Largest Loss"
-            value={formatCurrency(Math.abs(metrics.largestLoss))}
-            icon={ArrowDown}
-            iconColor="red"
-          />
+        {/* Performance Overview */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <MonthlyBreakdownChart data={monthlyBreakdown} />
+          </div>
+          <OverallProgressCard winRate={metrics.winRate} />
         </div>
 
-        {/* Secondary Metrics Row */}
+        {/* Secondary Stats Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="widget-card">
-            <p className="text-xs text-muted-foreground mb-1">Avg Win</p>
-            <p className="text-xl font-bold text-success tabular-nums">{formatCurrency(metrics.avgWin)}</p>
+            <p className="text-xs text-muted-foreground mb-2">Average Win</p>
+            <p className="text-2xl font-bold text-success tabular-nums">{formatCurrency(metrics.avgWin)}</p>
           </div>
           <div className="widget-card">
-            <p className="text-xs text-muted-foreground mb-1">Avg Loss</p>
-            <p className="text-xl font-bold text-destructive tabular-nums">{formatCurrency(Math.abs(metrics.avgLoss))}</p>
+            <p className="text-xs text-muted-foreground mb-2">Average Loss</p>
+            <p className="text-2xl font-bold text-destructive tabular-nums">{formatCurrency(Math.abs(metrics.avgLoss))}</p>
           </div>
           <div className="widget-card">
-            <p className="text-xs text-muted-foreground mb-1">P&L Percentage</p>
-            <p className={`text-xl font-bold tabular-nums ${metrics.totalPnlPercent >= 0 ? 'text-success' : 'text-destructive'}`}>
-              {metrics.totalPnlPercent >= 0 ? '+' : ''}{metrics.totalPnlPercent.toFixed(2)}%
-            </p>
+            <p className="text-xs text-muted-foreground mb-2">Total Trades</p>
+            <p className="text-2xl font-bold text-foreground tabular-nums">{metrics.totalTrades}</p>
           </div>
           <div className="widget-card flex items-center justify-between">
             <div>
-              <p className="text-xs text-muted-foreground mb-1">Export Data</p>
+              <p className="text-xs text-muted-foreground mb-2">Export</p>
               <p className="text-sm font-medium text-foreground">{filteredTrades.length} trades</p>
             </div>
-            <Button onClick={exportToCSV} size="sm" variant="outline" className="rounded-xl h-9 px-4">
-              <Download className="w-4 h-4 mr-1.5" />
+            <Button onClick={exportToCSV} size="sm" variant="outline" className="rounded-xl h-10 px-4">
+              <Download className="w-4 h-4 mr-2" />
               CSV
             </Button>
           </div>
@@ -284,45 +278,37 @@ const Index = () => {
         {/* Risk Management */}
         <RiskManagementCard metrics={riskMetrics} />
 
-        {/* Overview Charts - 3 column grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <LongShortPieChart data={longShortRatio} />
+        {/* Charts Grid - Clean 2 column layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <PnLLineChart data={cumulativePnLData} />
-          <OverallProgressCard winRate={metrics.winRate} />
+          <LongShortPieChart data={longShortRatio} />
         </div>
 
-        {/* P&L Analysis - 2 column grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <DailyPnLChart data={dailyPnLData} />
           <DrawdownChart data={drawdownData} />
         </div>
 
-        {/* Distribution & Symbol Analysis */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <PnLDistributionChart data={pnlDistribution} />
           <WinRateBySymbolChart data={winRateBySymbol} />
         </div>
 
-        {/* Monthly & Symbol Breakdown */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <MonthlyBreakdownChart data={monthlyBreakdown} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <SymbolDistributionChart data={symbolDistribution} />
+          <SessionPerformanceChart data={sessionPerformance} />
         </div>
 
-        {/* Time Analysis */}
+        {/* Time Analysis - Full Width */}
         <TradingTimeAnalysis data={timeAnalysisData} />
 
-        {/* Session & Order Type Performance */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <SessionPerformanceChart data={sessionPerformance} />
+        {/* More Charts */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <OrderTypePerformanceChart data={orderTypePerformance} />
+          <FeesBySymbolChart data={feeAnalysis.feesBySymbol} />
         </div>
 
-        {/* Fee Analysis */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <FeesBySymbolChart data={feeAnalysis.feesBySymbol} />
-          <CumulativeFeesChart data={feeAnalysis.cumulativeFeeData} />
-        </div>
+        <CumulativeFeesChart data={feeAnalysis.cumulativeFeeData} />
 
         {/* Performance Heatmap */}
         <PerformanceHeatmap data={heatmapData} />

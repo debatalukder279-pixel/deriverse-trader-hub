@@ -25,48 +25,45 @@ export function DashboardLayout({ children, title, subtitle, greeting }: Dashboa
       
       <main
         className={cn(
-          "transition-all duration-300 ease-out",
-          sidebarCollapsed ? "ml-[72px]" : "ml-[240px]"
+          "transition-all duration-300 ease-out min-h-screen",
+          sidebarCollapsed ? "ml-[80px]" : "ml-[260px]"
         )}
       >
         {/* Top Header */}
-        <header className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm">
-          <div className="flex items-center justify-between px-8 py-5">
+        <header className="sticky top-0 z-30 bg-background/80 backdrop-blur-xl">
+          <div className="flex items-center justify-between px-8 py-6">
             <div className="animate-fade-in">
               {greeting ? (
-                <>
-                  <p className="text-sm text-muted-foreground mb-0.5">Welcome back</p>
-                  <h1 className="text-2xl font-semibold text-foreground tracking-tight">
-                    {mockUser.name.split(' ')[0]} 👋
-                  </h1>
-                </>
+                <h1 className="text-2xl font-bold text-foreground tracking-tight">
+                  Earnings
+                </h1>
               ) : (
                 <>
-                  <h1 className="text-2xl font-semibold text-foreground tracking-tight">{title}</h1>
-                  {subtitle && <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>}
+                  <h1 className="text-2xl font-bold text-foreground tracking-tight">{title}</h1>
+                  {subtitle && <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>}
                 </>
               )}
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               {/* Search */}
-              <div className="hidden md:flex items-center gap-2.5 px-4 py-2.5 bg-card rounded-xl border border-border/50 w-64 transition-all duration-200 focus-within:border-primary/30 focus-within:shadow-sm">
-                <Search className="h-4 w-4 text-muted-foreground/60" />
+              <div className="hidden md:flex items-center gap-3 px-5 py-3 bg-card rounded-2xl w-72 transition-all duration-200 focus-within:shadow-md">
+                <Search className="h-4 w-4 text-muted-foreground" />
                 <Input
                   type="text"
-                  placeholder="Search..."
-                  className="bg-transparent border-none shadow-none h-auto p-0 text-sm placeholder:text-muted-foreground/60 focus-visible:ring-0"
+                  placeholder="Search"
+                  className="bg-transparent border-none shadow-none h-auto p-0 text-sm placeholder:text-muted-foreground focus-visible:ring-0"
                 />
               </div>
 
               {/* Notification */}
-              <button className="relative w-10 h-10 rounded-xl bg-card border border-border/50 flex items-center justify-center transition-all duration-200 hover:border-border hover:shadow-sm">
+              <button className="relative w-11 h-11 rounded-2xl bg-card flex items-center justify-center transition-all duration-200 hover:shadow-md">
                 <Bell className="h-5 w-5 text-muted-foreground" />
-                <span className="absolute top-2 right-2 w-2 h-2 bg-destructive rounded-full animate-pulse" />
+                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-destructive rounded-full" />
               </button>
 
               {/* User Avatar */}
-              <Avatar className="h-10 w-10 ring-2 ring-border/50 transition-all duration-200 hover:ring-primary/30 cursor-pointer">
+              <Avatar className="h-11 w-11 ring-2 ring-border transition-all duration-200 hover:ring-primary/30 cursor-pointer">
                 <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" />
                 <AvatarFallback className="bg-muted text-foreground font-medium text-sm">
                   {mockUser.name.split(' ').map(n => n[0]).join('')}

@@ -6,34 +6,34 @@
 
 @layer base {
   :root {
-    /* Background - Clean light gray */
-    --background: 210 20% 97%;
-    --foreground: 210 25% 10%;
+    /* Background - Soft lavender-gray like reference */
+    --background: 230 25% 95%;
+    --foreground: 220 25% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 25% 10%;
-    --card-secondary: 210 20% 97%;
+    --card-foreground: 220 25% 12%;
+    --card-secondary: 230 20% 97%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 25% 10%;
+    --popover-foreground: 220 25% 12%;
 
-    /* Primary - Teal Brand */
-    --primary: 174 50% 28%;
+    /* Primary - Dark for buttons/active states */
+    --primary: 220 25% 12%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 174 50% 35%;
-    --primary-soft: 174 30% 95%;
+    --primary-hover: 220 25% 20%;
+    --primary-soft: 220 20% 95%;
 
     /* Secondary */
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 210 25% 20%;
-    --secondary-soft: 210 20% 98%;
+    --secondary: 230 20% 96%;
+    --secondary-foreground: 220 25% 20%;
+    --secondary-soft: 230 20% 98%;
 
     /* Muted */
-    --muted: 210 20% 96%;
-    --muted-foreground: 210 15% 50%;
+    --muted: 230 20% 93%;
+    --muted-foreground: 220 15% 50%;
 
-    /* Accent - Teal */
-    --accent: 174 50% 35%;
+    /* Accent - Soft purple hint */
+    --accent: 250 50% 60%;
     --accent-foreground: 0 0% 100%;
 
     /* Success - Green */
@@ -46,37 +46,37 @@
     --destructive-foreground: 0 0% 100%;
     --destructive-soft: 0 60% 95%;
 
-    /* Warning - Orange */
-    --warning: 35 95% 55%;
-    --warning-hover: 35 95% 50%;
-    --warning-foreground: 0 0% 100%;
+    /* Warning - Soft orange/cream */
+    --warning: 35 85% 65%;
+    --warning-hover: 35 85% 60%;
+    --warning-foreground: 35 100% 15%;
 
     /* Borders */
-    --border: 210 20% 92%;
-    --input: 210 20% 92%;
-    --ring: 174 50% 35%;
+    --border: 230 20% 90%;
+    --input: 230 20% 90%;
+    --ring: 220 25% 12%;
 
     --radius: 1rem;
-    --radius-widget: 0.875rem;
+    --radius-widget: 1.25rem;
 
-    /* Sidebar - Dark Teal */
-    --sidebar-background: 174 45% 22%;
-    --sidebar-foreground: 174 20% 75%;
-    --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 174 45% 22%;
-    --sidebar-accent: 174 40% 28%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 174 40% 28%;
-    --sidebar-ring: 0 0% 100%;
-    --sidebar-muted: 174 20% 60%;
+    /* Sidebar - Light theme */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 15% 50%;
+    --sidebar-primary: 220 25% 12%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 20% 96%;
+    --sidebar-accent-foreground: 220 25% 12%;
+    --sidebar-border: 230 20% 92%;
+    --sidebar-ring: 220 25% 12%;
+    --sidebar-muted: 220 15% 60%;
 
     /* Chart Colors */
-    --chart-1: 210 25% 20%;
-    --chart-2: 174 50% 35%;
+    --chart-1: 220 25% 15%;
+    --chart-2: 250 50% 60%;
     --chart-3: 156 72% 40%;
     --chart-4: 0 72% 55%;
     --chart-5: 210 60% 50%;
-    --chart-6: 35 95% 55%;
+    --chart-6: 35 85% 65%;
   }
 
   .dark {
@@ -149,40 +149,43 @@
 }
 
 @layer components {
-  /* Card Styles - Clean with subtle hover */
+  /* Card Styles - Clean, modern with soft shadows */
   .dashboard-card {
-    @apply bg-card p-5;
-    border-radius: 18px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-    transition: box-shadow 0.2s ease;
+    @apply bg-card p-6;
+    border-radius: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    transition: all 0.2s ease;
   }
 
   .dashboard-card:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+    transform: translateY(-1px);
   }
 
   /* Widget Card - Smaller secondary cards */
   .widget-card {
-    @apply bg-card p-4;
-    border-radius: 14px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-    transition: box-shadow 0.2s ease;
+    @apply bg-card p-5;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
   }
 
   .widget-card:hover {
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
   }
 
   /* Metric Card - Compact for KPI row */
   .metric-card {
-    @apply bg-card p-4;
-    border-radius: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-    transition: box-shadow 0.2s ease;
+    @apply bg-card p-5;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
   }
 
   .metric-card:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
   }
 
   .metric-icon-box {
