@@ -115,28 +115,6 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         })}
       </nav>
 
-      {/* Upgrade Card */}
-      {!collapsed && (
-        <div className="px-3 pb-4">
-          <div className="upgrade-card animate-fade-in">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
-                <TrendingUp className="w-4 h-4 text-white" />
-              </div>
-              <div>
-                <p className="font-semibold text-white text-sm">Upgrade Pro</p>
-                <p className="text-[11px] text-white/70">Unlock all features</p>
-              </div>
-            </div>
-            <Button
-              size="sm"
-              className="w-full bg-white text-sidebar-background hover:bg-white/90 font-semibold rounded-xl transition-all duration-200 hover:scale-[1.02]"
-            >
-              Upgrade $30
-            </Button>
-          </div>
-        </div>
-      )}
 
       {/* Logout */}
       <div className={cn("px-3 pb-6", collapsed && "flex justify-center")}>
