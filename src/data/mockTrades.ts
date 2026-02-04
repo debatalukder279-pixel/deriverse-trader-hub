@@ -617,6 +617,23 @@ export const getFeeAnalysis = (trades: Trade[]) => {
     };
   });
 
+  // Fee composition by symbol (maker/taker/withdrawal)
+  const feeComposition = (['SOL', 'BTC', 'ETH', 'BONK'] as Symbol[]).map(symbol => {
+    const symbolTrades = closedTrades.filter(t => t.symbol === symbol);
+    const totalFees = symbolTrades.reduce((sum, t) => sum + t.fees, 0);
+    // Simulate fee breakdown: ~60% taker, ~35% maker, ~5% withdrawal
+    const takerFees = Number((totalFees * 0.60).toFixed(2));
+    const makerFees = Number((totalFees * 0.35).toFixed(2));
+    const withdrawalFees = Number((totalFees * 0.05).toFixed(2));
+    return {
+      symbol,
+      makerFees,
+      takerFees,
+      withdrawalFees,
+      totalFees: Number(totalFees.toFixed(2)),
+    };
+  });
+
   // Cumulative fees over time
   const sortedTrades = [...closedTrades].sort((a, b) => a.date.getTime() - b.date.getTime());
   let cumulativeFees = 0;
@@ -629,7 +646,35 @@ export const getFeeAnalysis = (trades: Trade[]) => {
     };
   });
 
-  return { feesBySymbol, cumulativeFeeData };
+  return { feesBySymbol, feeComposition, cumulativeFeeData };
+};
+
+// Get hour-by-day heatmap data
+export const getHourDayHeatmapData = (trades: Trade[]) => {
+  const data: Array<{ hour: number; day: number; pnl: number; trades: number }> = [];
+  
+  // Initialize all hour-day combinations
+  for (let day = 0; day < 7; day++) {
+    for (let hour = 0; hour < 24; hour++) {
+      data.push({ hour, day, pnl: 0, trades: 0 });
+    }
+  }
+  
+  // Aggregate trades by hour and day
+  trades.filter(t => t.status === 'Closed').forEach(trade => {
+    const hour = trade.date.getHours();
+    const day = trade.date.getDay();
+    const index = day * 24 + hour;
+    data[index].pnl += trade.pnl;
+    data[index].trades += 1;
+  });
+  
+  // Round pnl values
+  data.forEach(item => {
+    item.pnl = Number(item.pnl.toFixed(2));
+  });
+  
+  return data;
 };
 
 // Get performance by order type
