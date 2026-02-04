@@ -20,8 +20,8 @@ export function CumulativeFeesChart({ data }: CumulativeFeesChartProps) {
   return (
     <div className="dashboard-card">
       <div className="mb-4">
-        <h3 className="text-sm font-semibold text-foreground">Cumulative Fees</h3>
-        <p className="text-xs text-muted-foreground">Total fees over time</p>
+        <h3 className="text-sm font-semibold text-foreground">Cumulative Fees Over Time</h3>
+        <p className="text-xs text-muted-foreground">Running total of all fees</p>
       </div>
       <div className="h-[220px]">
         <ResponsiveContainer width="100%" height="100%">

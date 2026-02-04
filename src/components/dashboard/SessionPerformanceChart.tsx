@@ -22,8 +22,8 @@ export function SessionPerformanceChart({ data }: SessionPerformanceChartProps) 
   return (
     <div className="dashboard-card">
       <div className="mb-4">
-        <h3 className="text-sm font-semibold text-foreground">Session Performance</h3>
-        <p className="text-xs text-muted-foreground">P&L by trading session</p>
+        <h3 className="text-sm font-semibold text-foreground">Performance by Trading Session</h3>
+        <p className="text-xs text-muted-foreground">Asian | London | NY sessions</p>
       </div>
       <div className="h-[220px]">
         <ResponsiveContainer width="100%" height="100%">

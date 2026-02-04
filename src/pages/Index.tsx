@@ -21,6 +21,8 @@ import { FeesBySymbolChart } from "@/components/dashboard/FeesBySymbolChart";
 import { CumulativeFeesChart } from "@/components/dashboard/CumulativeFeesChart";
 import { PnLDistributionChart } from "@/components/dashboard/PnLDistributionChart";
 import { DrawdownChart } from "@/components/dashboard/DrawdownChart";
+import { TimeOfDayHeatmap } from "@/components/dashboard/TimeOfDayHeatmap";
+import { FeeCompositionChart } from "@/components/dashboard/FeeCompositionChart";
 import {
   mockTrades,
   calculateMetrics,
@@ -38,6 +40,7 @@ import {
   getOrderTypePerformance,
   getWinRateBySymbol,
   getDrawdownData,
+  getHourDayHeatmapData,
   filterTrades,
 } from "@/data/mockTrades";
 import { Trade } from "@/types/trading";
@@ -122,6 +125,7 @@ const Index = () => {
   const orderTypePerformance = useMemo(() => getOrderTypePerformance(filteredTrades), [filteredTrades]);
   const winRateBySymbol = useMemo(() => getWinRateBySymbol(filteredTrades), [filteredTrades]);
   const drawdownData = useMemo(() => getDrawdownData(filteredTrades), [filteredTrades]);
+  const hourDayHeatmapData = useMemo(() => getHourDayHeatmapData(filteredTrades), [filteredTrades]);
 
   const handleAddNote = (tradeId: string, note: string) => {
     setTrades(prev =>
@@ -294,17 +298,23 @@ const Index = () => {
           <WinRateBySymbolChart data={winRateBySymbol} />
         </div>
 
+        <SymbolDistributionChart data={symbolDistribution} />
+
+        {/* Time Analysis */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <SymbolDistributionChart data={symbolDistribution} />
-          <SessionPerformanceChart data={sessionPerformance} />
+          <TradingTimeAnalysis data={timeAnalysisData} />
+          <TimeOfDayHeatmap data={hourDayHeatmapData} />
         </div>
 
-        {/* Time Analysis - Full Width */}
-        <TradingTimeAnalysis data={timeAnalysisData} />
-
-        {/* More Charts */}
+        {/* Session & Order Type Performance */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <SessionPerformanceChart data={sessionPerformance} />
           <OrderTypePerformanceChart data={orderTypePerformance} />
+        </div>
+
+        {/* Fee Analysis */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <FeeCompositionChart data={feeAnalysis.feeComposition} />
           <FeesBySymbolChart data={feeAnalysis.feesBySymbol} />
         </div>
 
