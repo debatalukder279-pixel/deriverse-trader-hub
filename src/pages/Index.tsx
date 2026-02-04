@@ -70,9 +70,9 @@ const Index = () => {
 
   return (
     <DashboardLayout title="Trading Dashboard" subtitle="Track your trading performance and analytics" greeting>
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Metrics Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <MetricCard
             title="Total Trades"
             value={metrics.totalTrades.toLocaleString()}
@@ -104,22 +104,22 @@ const Index = () => {
         </div>
 
         {/* Charts Row 1 */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <LongShortPieChart data={longShortRatio} />
           <PnLLineChart data={cumulativePnLData} />
           <OverallProgressCard winRate={metrics.winRate} />
         </div>
 
-        {/* Charts Row 2 - New Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {/* Charts Row 2 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <MonthlyBreakdownChart data={monthlyBreakdown} />
           <SymbolDistributionChart data={symbolDistribution} />
         </div>
 
-        {/* Time Analysis - Full Width */}
+        {/* Time Analysis */}
         <TradingTimeAnalysis data={timeAnalysisData} />
 
-        {/* Performance Heatmap - Full Width */}
+        {/* Performance Heatmap */}
         <PerformanceHeatmap data={heatmapData} />
 
         {/* Trades Table */}

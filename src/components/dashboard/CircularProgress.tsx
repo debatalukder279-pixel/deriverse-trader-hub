@@ -6,7 +6,6 @@ interface CircularProgressProps {
   size?: number;
   strokeWidth?: number;
   label?: string;
-  sublabel?: string;
   className?: string;
 }
 
@@ -16,7 +15,6 @@ export function CircularProgress({
   size = 160,
   strokeWidth = 12,
   label,
-  sublabel,
   className,
 }: CircularProgressProps) {
   const radius = (size - strokeWidth) / 2;
@@ -51,23 +49,17 @@ export function CircularProgress({
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
-          className="transition-all duration-500 ease-out"
+          className="transition-all duration-700 ease-out"
         />
       </svg>
       
       {/* Center content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        {sublabel && (
-          <span className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-            {sublabel}
-          </span>
-        )}
-        <span className="text-4xl font-bold text-foreground tabular-nums">
-          {Math.round(percentage)}
-          <span className="text-lg">%</span>
+        <span className="text-3xl font-semibold text-foreground tabular-nums tracking-tight">
+          {Math.round(percentage)}%
         </span>
         {label && (
-          <span className="text-sm text-muted-foreground mt-1">{label}</span>
+          <span className="text-xs text-muted-foreground mt-1">{label}</span>
         )}
       </div>
     </div>

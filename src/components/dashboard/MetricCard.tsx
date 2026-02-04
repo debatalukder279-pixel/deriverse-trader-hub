@@ -31,19 +31,19 @@ export function MetricCard({
   }[iconColor];
 
   return (
-    <div className="metric-card animate-fade-in">
+    <div className="metric-card">
       <div className="flex items-start justify-between">
-        <div className="flex-1">
-          <p className="text-sm text-muted-foreground mb-2">{title}</p>
-          <p className="text-2xl font-bold text-foreground tabular-nums">
+        <div className="flex-1 space-y-1">
+          <p className="text-sm font-medium text-muted-foreground">{title}</p>
+          <p className="text-3xl font-semibold text-foreground tracking-tight tabular-nums">
             {value}
           </p>
           {change && (
-            <div className="flex items-center gap-1.5 mt-3">
+            <div className="flex items-center gap-1.5 pt-2">
               <span
                 className={cn(
-                  "change-indicator",
-                  change.isPositive ? "change-indicator-up" : "change-indicator-down"
+                  "inline-flex items-center gap-0.5 text-xs font-medium",
+                  change.isPositive ? "text-success" : "text-destructive"
                 )}
               >
                 {change.isPositive ? (
@@ -51,15 +51,12 @@ export function MetricCard({
                 ) : (
                   <ArrowDown className="w-3 h-3" />
                 )}
-                {change.isPositive ? '+' : ''}{change.value}%
+                {Math.abs(change.value)}%
               </span>
-              <span className="text-xs text-muted-foreground">
-                {change.label || 'Since last week'}
+              <span className="text-xs text-muted-foreground/70">
+                {change.label || 'vs last week'}
               </span>
             </div>
-          )}
-          {subtitle && (
-            <p className="text-xs text-muted-foreground mt-2">{subtitle}</p>
           )}
         </div>
         <div className={cn("metric-icon-box", iconColorClass)}>
