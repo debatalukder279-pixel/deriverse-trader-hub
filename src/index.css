@@ -6,118 +6,118 @@
 
 @layer base {
   :root {
-    /* Background Colors */
-    --background: 220 20% 97%; /* #F5F7FA */
-    --foreground: 222 47% 11%;
+    /* Background - Soft lavender gradient base */
+    --background: 270 50% 97%;
+    --foreground: 270 30% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 270 30% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 270 30% 20%;
 
-    /* Primary - Blue */
-    --primary: 231 62% 60%; /* Softer blue like reference */
+    /* Primary - Vibrant Purple */
+    --primary: 270 70% 60%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 231 62% 50%;
+    --primary-hover: 270 70% 50%;
 
-    /* Secondary */
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 222 47% 11%;
+    /* Secondary - Soft Pink */
+    --secondary: 300 60% 95%;
+    --secondary-foreground: 270 30% 20%;
 
     /* Muted */
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 270 30% 95%;
+    --muted-foreground: 270 20% 50%;
 
-    /* Accent - Purple/Indigo */
-    --accent: 250 60% 60%;
+    /* Accent - Magenta/Pink */
+    --accent: 320 70% 65%;
     --accent-foreground: 0 0% 100%;
 
-    /* Success - Green */
-    --success: 142 71% 45%;
+    /* Success - Soft Green */
+    --success: 160 60% 45%;
     --success-foreground: 0 0% 100%;
 
-    /* Destructive - Red */
-    --destructive: 0 84% 60%;
+    /* Destructive - Soft Red */
+    --destructive: 0 70% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Warning - Orange/Yellow */
-    --warning: 38 92% 50%;
-    --warning-hover: 38 92% 45%;
+    /* Warning - Soft Orange */
+    --warning: 35 90% 55%;
+    --warning-hover: 35 90% 50%;
     --warning-foreground: 0 0% 100%;
 
-    /* Borders */
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 231 62% 60%;
+    /* Borders - Very subtle */
+    --border: 270 30% 90%;
+    --input: 270 30% 90%;
+    --ring: 270 70% 60%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Sidebar - Dark Navy */
-    --sidebar-background: 222 47% 11%;
-    --sidebar-foreground: 220 14% 70%;
-    --sidebar-primary: 231 62% 60%;
+    /* Sidebar - Light with purple accent */
+    --sidebar-background: 270 40% 98%;
+    --sidebar-foreground: 270 20% 50%;
+    --sidebar-primary: 270 70% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 47% 16%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 222 47% 16%;
-    --sidebar-ring: 231 62% 60%;
-    --sidebar-muted: 220 9% 46%;
+    --sidebar-accent: 270 60% 95%;
+    --sidebar-accent-foreground: 270 70% 50%;
+    --sidebar-border: 270 30% 92%;
+    --sidebar-ring: 270 70% 60%;
+    --sidebar-muted: 270 20% 60%;
 
-    /* Chart Colors */
-    --chart-1: 231 62% 60%; /* Blue */
-    --chart-2: 250 60% 60%; /* Purple */
-    --chart-3: 142 71% 45%; /* Green */
-    --chart-4: 0 84% 60%; /* Red */
-    --chart-5: 38 92% 50%; /* Orange */
-    --chart-6: 180 60% 45%; /* Teal */
+    /* Chart Colors - Purple/Pink palette */
+    --chart-1: 270 70% 60%; /* Purple */
+    --chart-2: 320 70% 65%; /* Pink */
+    --chart-3: 300 60% 70%; /* Light Magenta */
+    --chart-4: 250 60% 65%; /* Indigo */
+    --chart-5: 340 70% 65%; /* Rose */
+    --chart-6: 280 50% 55%; /* Deep Purple */
   }
 
   .dark {
-    --background: 222 47% 8%;
-    --foreground: 210 40% 98%;
+    --background: 270 30% 8%;
+    --foreground: 270 20% 95%;
 
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
+    --card: 270 30% 12%;
+    --card-foreground: 270 20% 95%;
 
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 270 30% 12%;
+    --popover-foreground: 270 20% 95%;
 
-    --primary: 231 62% 60%;
+    --primary: 270 70% 60%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 231 62% 70%;
+    --primary-hover: 270 70% 70%;
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 270 30% 18%;
+    --secondary-foreground: 270 20% 95%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 270 30% 18%;
+    --muted-foreground: 270 20% 60%;
 
-    --accent: 250 60% 60%;
+    --accent: 320 70% 60%;
     --accent-foreground: 0 0% 100%;
 
-    --success: 142 71% 45%;
+    --success: 160 60% 45%;
     --success-foreground: 0 0% 100%;
 
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 270 20% 95%;
 
-    --warning: 38 92% 50%;
-    --warning-hover: 38 92% 55%;
+    --warning: 35 90% 55%;
+    --warning-hover: 35 90% 60%;
     --warning-foreground: 0 0% 100%;
 
-    --border: 217 33% 20%;
-    --input: 217 33% 20%;
-    --ring: 231 62% 60%;
+    --border: 270 30% 20%;
+    --input: 270 30% 20%;
+    --ring: 270 70% 60%;
 
-    --sidebar-background: 222 47% 6%;
-    --sidebar-foreground: 215 20% 65%;
-    --sidebar-primary: 231 62% 60%;
+    --sidebar-background: 270 30% 6%;
+    --sidebar-foreground: 270 20% 65%;
+    --sidebar-primary: 270 70% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent: 270 30% 18%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 231 62% 60%;
+    --sidebar-border: 270 30% 18%;
+    --sidebar-ring: 270 70% 60%;
   }
 }
 
@@ -265,10 +265,10 @@
     @apply hover:bg-muted;
   }
 
-  /* Upgrade Card - Dark Sidebar */
+  /* Upgrade Card - Purple/Pink Gradient */
   .upgrade-card {
     @apply rounded-2xl p-5;
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(250 60% 50%) 100%);
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
   }
 
   /* Scrollbar Styles */
