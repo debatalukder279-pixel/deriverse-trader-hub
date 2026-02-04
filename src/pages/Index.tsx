@@ -18,12 +18,10 @@ import {
 } from "@/data/mockTrades";
 import { Trade } from "@/types/trading";
 import {
+  Users,
   DollarSign,
   TrendingUp,
-  BarChart3,
-  Activity,
-  Coins,
-  Clock,
+  FileText,
 } from "lucide-react";
 
 const Index = () => {
@@ -76,90 +74,50 @@ const Index = () => {
       return `$${(value / 1000000).toFixed(2)}M`;
     }
     if (Math.abs(value) >= 1000) {
-      return `$${(value / 1000).toFixed(2)}K`;
+      return `$${(value / 1000).toFixed(3)}`;
     }
     return `$${value.toFixed(2)}`;
   };
 
-  const formatPnL = (value: number) => {
-    const formatted = formatCurrency(Math.abs(value));
-    return value >= 0 ? `+${formatted}` : `-${formatted.slice(1)}`;
-  };
-
   return (
-    <DashboardLayout title="Trading Dashboard" subtitle="Real-time analytics & performance">
-      <div className="space-y-6 animate-fade-in">
+    <DashboardLayout title="Trading Dashboard" subtitle="Track your trading performance and analytics" greeting>
+      <div className="space-y-6">
         {/* Metrics Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           <MetricCard
-            title="Total P&L"
-            value={formatPnL(metrics.totalPnl)}
+            title="Total Trades"
+            value={metrics.totalTrades.toLocaleString()}
+            icon={Users}
+            iconColor="purple"
+            change={{ value: 6.5, isPositive: true }}
+          />
+          <MetricCard
+            title="Revenue"
+            value={formatCurrency(metrics.totalPnl)}
             icon={DollarSign}
-            variant={metrics.totalPnl >= 0 ? "profit" : "loss"}
-            change={{ value: 12.5, isPositive: metrics.totalPnl >= 0 }}
+            iconColor="green"
+            change={{ value: 0.1, isPositive: metrics.totalPnl >= 0 }}
           />
           <MetricCard
             title="Win Rate"
             value={`${metrics.winRate}%`}
             icon={TrendingUp}
-            variant={metrics.winRate >= 50 ? "profit" : "loss"}
-            progress={metrics.winRate}
+            iconColor="orange"
+            change={{ value: 0.2, isPositive: metrics.winRate >= 50 }}
           />
           <MetricCard
-            title="Total Trades"
-            value={metrics.totalTrades.toString()}
-            icon={BarChart3}
-            variant="neutral"
-            subtitle="Closed positions"
-          />
-          <MetricCard
-            title="Trading Volume"
-            value={formatCurrency(metrics.totalVolume)}
-            icon={Activity}
-            variant="neutral"
-            change={{ value: 8.3, isPositive: true }}
-          />
-          <MetricCard
-            title="Total Fees"
-            value={formatCurrency(metrics.totalFees)}
-            icon={Coins}
-            variant="neutral"
-            subtitle="Exchange fees"
-          />
-          <MetricCard
-            title="Avg Duration"
-            value={`${metrics.avgTradeDuration}h`}
-            icon={Clock}
-            variant="neutral"
-            subtitle="Per trade"
+            title="Volume"
+            value={formatCurrency(metrics.totalVolume).replace('$', '')}
+            icon={FileText}
+            iconColor="blue"
+            change={{ value: 11.5, isPositive: true }}
           />
         </div>
 
-        {/* Filter Controls */}
-        <FilterControls
-          symbol={filters.symbol}
-          dateRange={filters.dateRange}
-          tradeType={filters.tradeType}
-          customStartDate={filters.customStartDate}
-          customEndDate={filters.customEndDate}
-          onSymbolChange={(value) => setFilters(prev => ({ ...prev, symbol: value }))}
-          onDateRangeChange={(value) => setFilters(prev => ({ ...prev, dateRange: value }))}
-          onTradeTypeChange={(value) => setFilters(prev => ({ ...prev, tradeType: value }))}
-          onCustomStartDateChange={(date) => setFilters(prev => ({ ...prev, customStartDate: date }))}
-          onCustomEndDateChange={(date) => setFilters(prev => ({ ...prev, customEndDate: date }))}
-          onApply={handleApplyFilters}
-          onReset={handleResetFilters}
-        />
-
-        {/* Charts Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <PnLLineChart data={cumulativePnLData} />
-          <PnLBarChart data={pnlBySymbol} />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Charts Row */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <LongShortPieChart data={longShortRatio} />
-          <DrawdownChart data={drawdownData} />
+          <PnLLineChart data={cumulativePnLData} />
         </div>
 
         {/* Trades Table */}

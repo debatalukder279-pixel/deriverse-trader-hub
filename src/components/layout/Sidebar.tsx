@@ -6,12 +6,12 @@ import {
   TrendingUp,
   Settings,
   HelpCircle,
-  ChevronLeft,
   LogOut,
+  ChevronLeft,
+  Wallet,
+  Bell as BellIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { mockUser } from "@/data/mockTrades";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -21,12 +21,13 @@ interface SidebarProps {
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/" },
   { icon: BookOpen, label: "Journal", path: "/journal" },
-  { icon: TrendingUp, label: "Analytics", path: "/analytics" },
+  { icon: TrendingUp, label: "Statistics", path: "/analytics" },
+  { icon: Wallet, label: "Finances", path: "/finances" },
 ];
 
-const toolItems = [
+const supportItems = [
+  { icon: HelpCircle, label: "Help & Center", path: "/help" },
   { icon: Settings, label: "Settings", path: "/settings" },
-  { icon: HelpCircle, label: "Help", path: "/help" },
 ];
 
 export function Sidebar({ collapsed, onToggle }: SidebarProps) {
@@ -35,40 +36,43 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 h-screen bg-sidebar border-r border-sidebar-border transition-all duration-300 flex flex-col",
+        "fixed left-0 top-0 z-40 h-screen bg-sidebar transition-all duration-300 flex flex-col",
         collapsed ? "w-[72px]" : "w-[260px]"
       )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
+      <div className="flex items-center justify-between px-5 py-6">
         <div className={cn("flex items-center gap-3", collapsed && "justify-center w-full")}>
-          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
             <TrendingUp className="w-5 h-5 text-primary-foreground" />
           </div>
           {!collapsed && (
-            <span className="font-semibold text-foreground text-lg">Deriverse</span>
+            <div>
+              <span className="font-bold text-white text-lg tracking-tight">DERIVERSE</span>
+              <p className="text-[11px] text-sidebar-muted">Trading Dashboard</p>
+            </div>
           )}
         </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onToggle}
-          className={cn(
-            "h-8 w-8 text-muted-foreground hover:text-foreground",
-            collapsed && "hidden"
-          )}
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
       </div>
 
+      {/* Collapse Toggle */}
+      {!collapsed && (
+        <button
+          onClick={onToggle}
+          className="flex items-center gap-2 px-5 py-2 text-sidebar-foreground hover:text-white transition-colors text-sm"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          <span>Minimize</span>
+        </button>
+      )}
+
       {/* Navigation */}
-      <nav className="flex-1 p-3 space-y-1 overflow-y-auto custom-scrollbar">
-        <div className={cn("mb-4", collapsed && "hidden")}>
-          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-3">
-            Menu
-          </span>
-        </div>
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar">
+        {!collapsed && (
+          <p className="text-[11px] font-semibold text-sidebar-muted uppercase tracking-wider px-4 mb-3">
+            Main Menu
+          </p>
+        )}
         
         {menuItems.map((item) => {
           const isActive = location.pathname === item.path;
@@ -77,38 +81,36 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               key={item.path}
               to={item.path}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200",
-                "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                isActive && "bg-sidebar-accent text-sidebar-accent-foreground font-medium",
-                collapsed && "justify-center px-2"
+                "sidebar-item",
+                isActive && "sidebar-item-active",
+                collapsed && "justify-center px-3"
               )}
             >
-              <item.icon className={cn("w-5 h-5 flex-shrink-0", isActive && "text-primary")} />
+              <item.icon className={cn("w-5 h-5 flex-shrink-0")} />
               {!collapsed && <span>{item.label}</span>}
             </Link>
           );
         })}
 
-        <div className={cn("pt-6 mb-4", collapsed && "hidden")}>
-          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-3">
-            Tools
-          </span>
-        </div>
+        {!collapsed && (
+          <p className="text-[11px] font-semibold text-sidebar-muted uppercase tracking-wider px-4 mb-3 mt-8">
+            Help & Support
+          </p>
+        )}
 
-        {toolItems.map((item) => {
+        {supportItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
             <Link
               key={item.path}
               to={item.path}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200",
-                "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                isActive && "bg-sidebar-accent text-sidebar-accent-foreground font-medium",
-                collapsed && "justify-center px-2"
+                "sidebar-item",
+                isActive && "sidebar-item-active",
+                collapsed && "justify-center px-3"
               )}
             >
-              <item.icon className={cn("w-5 h-5 flex-shrink-0", isActive && "text-primary")} />
+              <item.icon className={cn("w-5 h-5 flex-shrink-0")} />
               {!collapsed && <span>{item.label}</span>}
             </Link>
           );
@@ -117,20 +119,20 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
       {/* Upgrade Card */}
       {!collapsed && (
-        <div className="p-3">
+        <div className="px-3 pb-3">
           <div className="upgrade-card">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-primary-foreground/20 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-primary-foreground" />
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-white" />
               </div>
               <div>
-                <p className="font-semibold text-primary-foreground text-sm">Upgrade Pro</p>
-                <p className="text-xs text-primary-foreground/80">Unlock all features</p>
+                <p className="font-semibold text-white text-sm">Upgrade Pro</p>
+                <p className="text-[11px] text-white/70">Unlock all features</p>
               </div>
             </div>
             <Button
               size="sm"
-              className="w-full bg-warning text-warning-foreground hover:bg-warning-hover font-semibold"
+              className="w-full bg-white text-primary hover:bg-white/90 font-semibold rounded-xl"
             >
               Upgrade $30
             </Button>
@@ -138,32 +140,20 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         </div>
       )}
 
-      {/* User Profile */}
+      {/* Logout */}
       <div className={cn(
-        "p-3 border-t border-sidebar-border",
+        "px-3 pb-6",
         collapsed && "flex justify-center"
       )}>
-        <div className={cn(
-          "flex items-center gap-3",
-          collapsed && "flex-col gap-2"
-        )}>
-          <Avatar className="h-10 w-10">
-            <AvatarFallback className="bg-primary/10 text-primary font-semibold">
-              {mockUser.name.split(' ').map(n => n[0]).join('')}
-            </AvatarFallback>
-          </Avatar>
-          {!collapsed && (
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-foreground truncate">{mockUser.name}</p>
-              <p className="text-xs text-muted-foreground truncate">{mockUser.email}</p>
-            </div>
+        <button
+          className={cn(
+            "sidebar-item w-full text-sidebar-foreground hover:text-white",
+            collapsed && "justify-center px-3"
           )}
-          {!collapsed && (
-            <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
-              <LogOut className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
+        >
+          <LogOut className="w-5 h-5" />
+          {!collapsed && <span>Log Out</span>}
+        </button>
       </div>
     </aside>
   );

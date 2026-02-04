@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, ArrowUp, ArrowDown } from "lucide-react";
 
 interface MetricCardProps {
   title: string;
@@ -7,11 +7,11 @@ interface MetricCardProps {
   change?: {
     value: number;
     isPositive: boolean;
+    label?: string;
   };
   icon: LucideIcon;
-  variant?: 'profit' | 'loss' | 'neutral';
+  iconColor?: 'blue' | 'green' | 'purple' | 'orange' | 'red';
   subtitle?: string;
-  progress?: number;
 }
 
 export function MetricCard({
@@ -19,82 +19,51 @@ export function MetricCard({
   value,
   change,
   icon: Icon,
-  variant = 'neutral',
+  iconColor = 'blue',
   subtitle,
-  progress,
 }: MetricCardProps) {
+  const iconColorClass = {
+    blue: 'metric-icon-box-blue',
+    green: 'metric-icon-box-green',
+    purple: 'metric-icon-box-purple',
+    orange: 'metric-icon-box-orange',
+    red: 'metric-icon-box-red',
+  }[iconColor];
+
   return (
-    <div
-      className={cn(
-        "metric-card",
-        variant === 'profit' && "metric-card-profit",
-        variant === 'loss' && "metric-card-loss",
-        variant === 'neutral' && "metric-card-neutral"
-      )}
-    >
+    <div className="metric-card animate-fade-in">
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <p className="text-sm font-medium text-muted-foreground mb-1">{title}</p>
-          <p
-            className={cn(
-              "text-2xl font-bold tabular-nums",
-              variant === 'profit' && "text-success",
-              variant === 'loss' && "text-destructive",
-              variant === 'neutral' && "text-foreground"
-            )}
-          >
+          <p className="text-sm text-muted-foreground mb-2">{title}</p>
+          <p className="text-2xl font-bold text-foreground tabular-nums">
             {value}
           </p>
-          {subtitle && (
-            <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
-          )}
           {change && (
-            <div className="flex items-center gap-1 mt-2">
+            <div className="flex items-center gap-1.5 mt-3">
               <span
                 className={cn(
-                  "text-xs font-medium px-1.5 py-0.5 rounded",
-                  change.isPositive
-                    ? "bg-success/10 text-success"
-                    : "bg-destructive/10 text-destructive"
+                  "change-indicator",
+                  change.isPositive ? "change-indicator-up" : "change-indicator-down"
                 )}
               >
+                {change.isPositive ? (
+                  <ArrowUp className="w-3 h-3" />
+                ) : (
+                  <ArrowDown className="w-3 h-3" />
+                )}
                 {change.isPositive ? '+' : ''}{change.value}%
               </span>
-              <span className="text-xs text-muted-foreground">vs last month</span>
+              <span className="text-xs text-muted-foreground">
+                {change.label || 'Since last week'}
+              </span>
             </div>
           )}
-          {progress !== undefined && (
-            <div className="mt-3">
-              <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                <div
-                  className={cn(
-                    "h-full rounded-full transition-all duration-500",
-                    variant === 'profit' && "bg-success",
-                    variant === 'loss' && "bg-destructive",
-                    variant === 'neutral' && "bg-primary"
-                  )}
-                  style={{ width: `${Math.min(progress, 100)}%` }}
-                />
-              </div>
-            </div>
+          {subtitle && (
+            <p className="text-xs text-muted-foreground mt-2">{subtitle}</p>
           )}
         </div>
-        <div
-          className={cn(
-            "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
-            variant === 'profit' && "bg-success/10",
-            variant === 'loss' && "bg-destructive/10",
-            variant === 'neutral' && "bg-primary/10"
-          )}
-        >
-          <Icon
-            className={cn(
-              "w-6 h-6",
-              variant === 'profit' && "text-success",
-              variant === 'loss' && "text-destructive",
-              variant === 'neutral' && "text-primary"
-            )}
-          />
+        <div className={cn("metric-icon-box", iconColorClass)}>
+          <Icon className="w-5 h-5" />
         </div>
       </div>
     </div>
