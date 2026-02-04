@@ -6,129 +6,129 @@
 
 @layer base {
   :root {
-    /* Background - Soft blue-tinted white */
-    --background: 228 60% 98%; /* #F7F9FF */
-    --foreground: 230 25% 18%;
+    /* Background - Clean light gray */
+    --background: 220 20% 97%;
+    --foreground: 220 20% 10%;
 
-    --card: 0 0% 100%; /* #FFFFFF */
-    --card-foreground: 230 25% 18%;
-    --card-secondary: 228 60% 98%; /* #F7F9FF */
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+    --card-secondary: 220 15% 97%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 230 25% 18%;
+    --popover-foreground: 220 20% 10%;
 
-    /* Primary - Purple Brand #6A5CFF */
-    --primary: 245 100% 68%;
+    /* Primary - Dark/Black */
+    --primary: 220 20% 15%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 248 100% 62%; /* Deep purple #5A3FFF */
-    --primary-soft: 245 100% 89%; /* Soft purple #C9C6FF */
+    --primary-hover: 220 20% 25%;
+    --primary-soft: 220 15% 95%;
 
-    /* Secondary - Blue accent #5AA6FF */
-    --secondary: 213 100% 67%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-soft: 213 100% 90%; /* Soft blue #CFE3FF */
+    /* Secondary - Light Gray */
+    --secondary: 220 15% 95%;
+    --secondary-foreground: 220 20% 20%;
+    --secondary-soft: 220 15% 97%;
 
     /* Muted */
-    --muted: 228 40% 96%;
-    --muted-foreground: 230 15% 50%;
+    --muted: 220 15% 95%;
+    --muted-foreground: 220 10% 50%;
 
-    /* Accent - Deep Purple */
-    --accent: 260 100% 62%; /* #8E5BFF */
+    /* Accent - Teal/Cyan */
+    --accent: 180 60% 45%;
     --accent-foreground: 0 0% 100%;
 
-    /* Success - Green #37D39A */
-    --success: 156 65% 52%;
+    /* Success - Green */
+    --success: 156 65% 45%;
     --success-foreground: 0 0% 100%;
-    --success-soft: 156 60% 90%; /* Soft green #CFF4E6 */
+    --success-soft: 156 40% 95%;
 
-    /* Destructive - Red #FF6B6B */
-    --destructive: 0 100% 71%;
+    /* Destructive - Red */
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 100%;
-    --destructive-soft: 0 100% 92%; /* Soft red #FFD6D6 */
+    --destructive-soft: 0 50% 95%;
 
-    /* Warning */
-    --warning: 38 100% 60%;
-    --warning-hover: 38 100% 55%;
+    /* Warning - Orange */
+    --warning: 35 90% 55%;
+    --warning-hover: 35 90% 50%;
     --warning-foreground: 0 0% 100%;
 
-    /* Borders */
-    --border: 228 30% 92%;
-    --input: 228 30% 92%;
-    --ring: 245 100% 68%;
+    /* Borders - Very subtle */
+    --border: 220 15% 92%;
+    --input: 220 15% 92%;
+    --ring: 220 20% 15%;
 
-    --radius: 1.375rem; /* 22px for main cards */
-    --radius-widget: 1.125rem; /* 18px for small widgets */
+    --radius: 1.375rem;
+    --radius-widget: 1.125rem;
 
-    /* Sidebar */
-    --sidebar-background: 228 60% 99%;
-    --sidebar-foreground: 230 15% 50%;
-    --sidebar-primary: 245 100% 68%;
+    /* Sidebar - Clean white */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 10% 50%;
+    --sidebar-primary: 220 20% 15%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 245 100% 96%;
-    --sidebar-accent-foreground: 245 100% 58%;
-    --sidebar-border: 228 30% 94%;
-    --sidebar-ring: 245 100% 68%;
-    --sidebar-muted: 230 15% 60%;
+    --sidebar-accent: 220 15% 96%;
+    --sidebar-accent-foreground: 220 20% 15%;
+    --sidebar-border: 220 15% 94%;
+    --sidebar-ring: 220 20% 15%;
+    --sidebar-muted: 220 10% 60%;
 
     /* Chart Colors */
-    --chart-1: 245 100% 68%; /* Primary Purple */
-    --chart-2: 213 100% 67%; /* Blue */
-    --chart-3: 156 65% 52%; /* Green */
-    --chart-4: 0 100% 71%; /* Red */
-    --chart-5: 260 100% 62%; /* Accent Purple */
-    --chart-6: 280 70% 65%; /* Violet */
+    --chart-1: 220 20% 20%;
+    --chart-2: 220 15% 50%;
+    --chart-3: 156 65% 45%;
+    --chart-4: 0 70% 55%;
+    --chart-5: 180 60% 45%;
+    --chart-6: 220 15% 70%;
   }
 
   .dark {
-    --background: 230 25% 8%;
-    --foreground: 228 20% 95%;
+    --background: 220 20% 8%;
+    --foreground: 220 15% 95%;
 
-    --card: 230 25% 12%;
-    --card-foreground: 228 20% 95%;
-    --card-secondary: 230 25% 15%;
+    --card: 220 20% 12%;
+    --card-foreground: 220 15% 95%;
+    --card-secondary: 220 20% 15%;
 
-    --popover: 230 25% 12%;
-    --popover-foreground: 228 20% 95%;
+    --popover: 220 20% 12%;
+    --popover-foreground: 220 15% 95%;
 
-    --primary: 245 100% 68%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 245 100% 75%;
-    --primary-soft: 245 50% 25%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 220 20% 10%;
+    --primary-hover: 220 15% 90%;
+    --primary-soft: 220 20% 20%;
 
-    --secondary: 213 100% 67%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-soft: 213 40% 25%;
+    --secondary: 220 20% 18%;
+    --secondary-foreground: 220 15% 95%;
+    --secondary-soft: 220 20% 15%;
 
-    --muted: 230 25% 18%;
-    --muted-foreground: 228 15% 60%;
+    --muted: 220 20% 18%;
+    --muted-foreground: 220 10% 55%;
 
-    --accent: 260 100% 65%;
+    --accent: 180 60% 50%;
     --accent-foreground: 0 0% 100%;
 
-    --success: 156 65% 48%;
+    --success: 156 65% 45%;
     --success-foreground: 0 0% 100%;
-    --success-soft: 156 40% 20%;
+    --success-soft: 156 30% 20%;
 
-    --destructive: 0 80% 60%;
-    --destructive-foreground: 228 20% 95%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 220 15% 95%;
     --destructive-soft: 0 40% 20%;
 
-    --warning: 38 90% 55%;
-    --warning-hover: 38 90% 60%;
+    --warning: 35 90% 55%;
+    --warning-hover: 35 90% 60%;
     --warning-foreground: 0 0% 100%;
 
-    --border: 230 25% 20%;
-    --input: 230 25% 20%;
-    --ring: 245 100% 68%;
+    --border: 220 20% 20%;
+    --input: 220 20% 20%;
+    --ring: 0 0% 100%;
 
-    --sidebar-background: 230 25% 6%;
-    --sidebar-foreground: 228 15% 65%;
-    --sidebar-primary: 245 100% 68%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 230 25% 18%;
+    --sidebar-background: 220 20% 6%;
+    --sidebar-foreground: 220 10% 60%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 220 20% 10%;
+    --sidebar-accent: 220 20% 18%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 230 25% 18%;
-    --sidebar-ring: 245 100% 68%;
+    --sidebar-border: 220 20% 18%;
+    --sidebar-ring: 0 0% 100%;
   }
 }
 
@@ -144,37 +144,36 @@
 }
 
 @layer components {
-  /* Enhanced Card Styles with Brand Shadow */
+  /* Enhanced Card Styles - Clean minimal shadow */
   .dashboard-card {
     @apply bg-card p-5;
-    border-radius: 22px;
+    border-radius: 20px;
     box-shadow: 
-      0px 20px 40px rgba(98, 110, 255, 0.18),
-      0px 6px 16px rgba(0, 0, 0, 0.06);
+      0px 4px 20px rgba(0, 0, 0, 0.04),
+      0px 1px 3px rgba(0, 0, 0, 0.02);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
 
   .dashboard-card:hover {
     box-shadow: 
-      0px 24px 48px rgba(98, 110, 255, 0.22),
-      0px 8px 20px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+      0px 8px 30px rgba(0, 0, 0, 0.06),
+      0px 2px 6px rgba(0, 0, 0, 0.03);
   }
 
   /* Secondary Card - Soft Background */
   .dashboard-card-secondary {
     @apply p-5;
     background: hsl(var(--card-secondary));
-    border-radius: 18px;
+    border-radius: 16px;
   }
 
   /* Widget Card - Smaller Radius */
   .widget-card {
     @apply bg-card p-4;
-    border-radius: 18px;
+    border-radius: 16px;
     box-shadow: 
-      0px 12px 24px rgba(98, 110, 255, 0.12),
-      0px 4px 12px rgba(0, 0, 0, 0.04);
+      0px 2px 10px rgba(0, 0, 0, 0.03),
+      0px 1px 3px rgba(0, 0, 0, 0.02);
   }
 
   /* Metric Card - Enhanced */
@@ -183,27 +182,27 @@
   }
 
   .metric-icon-box {
-    @apply w-12 h-12 rounded-xl flex items-center justify-center;
+    @apply w-12 h-12 rounded-2xl flex items-center justify-center bg-muted;
   }
 
   .metric-icon-box-blue {
-    @apply bg-primary/10 text-primary;
+    @apply bg-muted text-foreground;
   }
 
   .metric-icon-box-green {
-    @apply bg-success/10 text-success;
+    @apply bg-success-soft text-success;
   }
 
   .metric-icon-box-purple {
-    @apply bg-accent/10 text-accent;
+    @apply bg-muted text-foreground;
   }
 
   .metric-icon-box-orange {
-    @apply bg-warning/10 text-warning;
+    @apply bg-muted text-foreground;
   }
 
   .metric-icon-box-red {
-    @apply bg-destructive/10 text-destructive;
+    @apply bg-destructive-soft text-destructive;
   }
 
   /* Chart Container */
@@ -298,21 +297,20 @@
     @apply hover:bg-muted;
   }
 
-  /* Upgrade Card - Brand Gradient */
+  /* Upgrade Card - Dark elegant */
   .upgrade-card {
-    @apply p-5;
-    border-radius: 22px;
-    background: linear-gradient(135deg, #6A5CFF 0%, #8E5BFF 50%, #B36CFF 100%);
+    @apply p-5 bg-primary text-primary-foreground;
+    border-radius: 20px;
   }
 
   /* Progress Ring Gradient */
   .progress-gradient {
-    background: linear-gradient(180deg, #6A5CFF 0%, #5AA6FF 100%);
+    background: linear-gradient(180deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 100%);
   }
 
-  /* Invoice/Feature Card Gradient */
+  /* Feature Card */
   .feature-gradient {
-    background: linear-gradient(135deg, #6A5CFF 0%, #8E5BFF 50%, #B36CFF 100%);
+    @apply bg-primary text-primary-foreground;
   }
 
   /* Scrollbar Styles */
