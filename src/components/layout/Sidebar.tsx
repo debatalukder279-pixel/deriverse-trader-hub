@@ -85,7 +85,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               )}
             >
               <item.icon className="w-5 h-5 flex-shrink-0" />
-              {!collapsed && <span className="font-medium">{item.label}</span>}
+              {!collapsed && <span>{item.label}</span>}
             </Link>
           );
         })}
@@ -109,7 +109,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               )}
             >
               <item.icon className="w-5 h-5 flex-shrink-0" />
-              {!collapsed && <span className="font-medium">{item.label}</span>}
+              {!collapsed && <span>{item.label}</span>}
             </Link>
           );
         })}
@@ -142,12 +142,12 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       <div className={cn("px-3 pb-6", collapsed && "flex justify-center")}>
         <button
           className={cn(
-            "sidebar-item w-full text-sidebar-foreground hover:text-white",
+            "sidebar-item w-full",
             collapsed && "justify-center px-3"
           )}
         >
           <LogOut className="w-5 h-5" />
-          {!collapsed && <span className="font-medium">Log Out</span>}
+          {!collapsed && <span>Log Out</span>}
         </button>
       </div>
     </aside>
