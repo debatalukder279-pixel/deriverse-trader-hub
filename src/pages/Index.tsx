@@ -1,19 +1,20 @@
 import { useState, useMemo } from "react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
-import { FilterControls } from "@/components/dashboard/FilterControls";
 import { PnLLineChart } from "@/components/dashboard/PnLLineChart";
-import { PnLBarChart } from "@/components/dashboard/PnLBarChart";
 import { LongShortPieChart } from "@/components/dashboard/LongShortPieChart";
-import { DrawdownChart } from "@/components/dashboard/DrawdownChart";
 import { TradesTable } from "@/components/dashboard/TradesTable";
+import { MonthlyBreakdownChart } from "@/components/dashboard/MonthlyBreakdownChart";
+import { PerformanceHeatmap } from "@/components/dashboard/PerformanceHeatmap";
+import { SymbolDistributionChart } from "@/components/dashboard/SymbolDistributionChart";
 import {
   mockTrades,
   calculateMetrics,
   getCumulativePnLData,
-  getPnLBySymbol,
   getLongShortRatio,
-  getDrawdownData,
+  getMonthlyBreakdown,
+  getDailyHeatmapData,
+  getSymbolDistribution,
   filterTrades,
 } from "@/data/mockTrades";
 import { Trade } from "@/types/trading";
@@ -26,14 +27,13 @@ import {
 
 const Index = () => {
   const [trades, setTrades] = useState<Trade[]>(mockTrades);
-  const [filters, setFilters] = useState({
+  const [appliedFilters] = useState({
     symbol: "ALL",
     dateRange: "90d",
     tradeType: "All",
     customStartDate: undefined as Date | undefined,
     customEndDate: undefined as Date | undefined,
   });
-  const [appliedFilters, setAppliedFilters] = useState(filters);
 
   const filteredTrades = useMemo(() => {
     return filterTrades(trades, appliedFilters);
@@ -41,25 +41,10 @@ const Index = () => {
 
   const metrics = useMemo(() => calculateMetrics(filteredTrades), [filteredTrades]);
   const cumulativePnLData = useMemo(() => getCumulativePnLData(filteredTrades), [filteredTrades]);
-  const pnlBySymbol = useMemo(() => getPnLBySymbol(filteredTrades), [filteredTrades]);
   const longShortRatio = useMemo(() => getLongShortRatio(filteredTrades), [filteredTrades]);
-  const drawdownData = useMemo(() => getDrawdownData(filteredTrades), [filteredTrades]);
-
-  const handleApplyFilters = () => {
-    setAppliedFilters(filters);
-  };
-
-  const handleResetFilters = () => {
-    const defaultFilters = {
-      symbol: "ALL",
-      dateRange: "90d",
-      tradeType: "All",
-      customStartDate: undefined,
-      customEndDate: undefined,
-    };
-    setFilters(defaultFilters);
-    setAppliedFilters(defaultFilters);
-  };
+  const monthlyBreakdown = useMemo(() => getMonthlyBreakdown(filteredTrades), [filteredTrades]);
+  const heatmapData = useMemo(() => getDailyHeatmapData(filteredTrades), [filteredTrades]);
+  const symbolDistribution = useMemo(() => getSymbolDistribution(filteredTrades), [filteredTrades]);
 
   const handleAddNote = (tradeId: string, note: string) => {
     setTrades(prev =>
@@ -114,11 +99,20 @@ const Index = () => {
           />
         </div>
 
-        {/* Charts Row */}
+        {/* Charts Row 1 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <LongShortPieChart data={longShortRatio} />
           <PnLLineChart data={cumulativePnLData} />
         </div>
+
+        {/* Charts Row 2 - New Charts */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <MonthlyBreakdownChart data={monthlyBreakdown} />
+          <SymbolDistributionChart data={symbolDistribution} />
+        </div>
+
+        {/* Performance Heatmap - Full Width */}
+        <PerformanceHeatmap data={heatmapData} />
 
         {/* Trades Table */}
         <TradesTable trades={filteredTrades} onAddNote={handleAddNote} />
