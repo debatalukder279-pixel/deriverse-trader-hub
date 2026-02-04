@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Sidebar } from "./Sidebar";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Menu, Bell, Search } from "lucide-react";
+import { Bell, Search } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { mockUser } from "@/data/mockTrades";
 
@@ -26,17 +25,17 @@ export function DashboardLayout({ children, title, subtitle, greeting }: Dashboa
       
       <main
         className={cn(
-          "transition-all duration-300",
-          sidebarCollapsed ? "ml-[72px]" : "ml-[260px]"
+          "transition-all duration-300 ease-out",
+          sidebarCollapsed ? "ml-[72px]" : "ml-[240px]"
         )}
       >
-        {/* Top Header - Simplified */}
-        <header className="sticky top-0 z-30 bg-background/80 backdrop-blur-sm">
-          <div className="flex items-center justify-between px-8 py-6">
-            <div>
+        {/* Top Header */}
+        <header className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm">
+          <div className="flex items-center justify-between px-8 py-5">
+            <div className="animate-fade-in">
               {greeting ? (
                 <>
-                  <p className="text-sm text-muted-foreground mb-1">Welcome back</p>
+                  <p className="text-sm text-muted-foreground mb-0.5">Welcome back</p>
                   <h1 className="text-2xl font-semibold text-foreground tracking-tight">
                     {mockUser.name.split(' ')[0]} 👋
                   </h1>
@@ -44,14 +43,14 @@ export function DashboardLayout({ children, title, subtitle, greeting }: Dashboa
               ) : (
                 <>
                   <h1 className="text-2xl font-semibold text-foreground tracking-tight">{title}</h1>
-                  {subtitle && <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>}
+                  {subtitle && <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>}
                 </>
               )}
             </div>
 
-            <div className="flex items-center gap-3">
-              {/* Search - Cleaner */}
-              <div className="hidden md:flex items-center gap-2.5 px-4 py-2.5 bg-card rounded-2xl border border-border/50 w-72">
+            <div className="flex items-center gap-4">
+              {/* Search */}
+              <div className="hidden md:flex items-center gap-2.5 px-4 py-2.5 bg-card rounded-xl border border-border/50 w-64 transition-all duration-200 focus-within:border-primary/30 focus-within:shadow-sm">
                 <Search className="h-4 w-4 text-muted-foreground/60" />
                 <Input
                   type="text"
@@ -61,15 +60,15 @@ export function DashboardLayout({ children, title, subtitle, greeting }: Dashboa
               </div>
 
               {/* Notification */}
-              <Button variant="ghost" size="icon" className="relative w-11 h-11 rounded-2xl hover:bg-card">
+              <button className="relative w-10 h-10 rounded-xl bg-card border border-border/50 flex items-center justify-center transition-all duration-200 hover:border-border hover:shadow-sm">
                 <Bell className="h-5 w-5 text-muted-foreground" />
-                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-destructive rounded-full" />
-              </Button>
+                <span className="absolute top-2 right-2 w-2 h-2 bg-destructive rounded-full animate-pulse" />
+              </button>
 
               {/* User Avatar */}
-              <Avatar className="h-11 w-11 border-2 border-border/50">
+              <Avatar className="h-10 w-10 ring-2 ring-border/50 transition-all duration-200 hover:ring-primary/30 cursor-pointer">
                 <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" />
-                <AvatarFallback className="bg-muted text-foreground font-medium">
+                <AvatarFallback className="bg-muted text-foreground font-medium text-sm">
                   {mockUser.name.split(' ').map(n => n[0]).join('')}
                 </AvatarFallback>
               </Avatar>
@@ -77,7 +76,7 @@ export function DashboardLayout({ children, title, subtitle, greeting }: Dashboa
           </div>
         </header>
 
-        {/* Page Content - Better spacing */}
+        {/* Page Content */}
         <div className="px-8 pb-8">
           {children}
         </div>
