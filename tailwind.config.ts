@@ -89,13 +89,11 @@ export default {
       },
       fontFamily: {
         sans: [
-          "Inter",
+          "Poppins",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",
           "Roboto",
-          "Oxygen",
-          "Ubuntu",
           "sans-serif",
         ],
       },
